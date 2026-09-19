@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="أم سارة">
+<meta name="theme-color" content="#C1707D">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A85C68'/%3E%3Cstop offset='.55' stop-color='%23C1707D'/%3E%3Cstop offset='1' stop-color='%23BE8C4C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='38' fill='url(%23g)'/%3E%3Cpath d='M28 92 H62 L72 58 L92 128 L106 92 L118 106 L128 92 H152' fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%A3%D9%85%20%D8%B3%D8%A7%D8%B1%D8%A9%22%2C%22short_name%22%3A%22%D8%A3%D9%85%20%D8%B3%D8%A7%D8%B1%D8%A9%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23FBF6F1%22%2C%22theme_color%22%3A%22%23C1707D%22%7D">
+<title>أم سارة — متابعة الحمل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FBF6F1;
+    --bg-card: #FFFFFF;
+    --bg-card-alt: #F3E7DC;
+    --text-primary: #3D2C39;
+    --text-secondary: #7A6670;
+    --accent-rose: #C1707D;
+    --accent-rose-dark: #A85C68;
+    --accent-rose-tint: #F3DEE1;
+    --accent-sage: #7E9E86;
+    --accent-sage-tint: #E3ECE4;
+    --accent-gold: #BE8C4C;
+    --accent-gold-tint: #F1E4CC;
+    --border: #E8DAD0;
+    --danger: #B85450;
+    --danger-tint: #F5E2E1;
+    --shadow: 0 10px 30px rgba(61, 44, 57, 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #241C22; --bg-card: #2E242B; --bg-card-alt: #362A32;
+      --text-primary: #F3E7DC; --text-secondary: #C6B4BC;
+      --accent-rose: #D98A96; --accent-rose-dark: #E7A3AC; --accent-rose-tint: #4A2E34;
+      --accent-sage: #92B79A; --accent-sage-tint: #2E3A31;
+      --accent-gold: #D6AC72; --accent-gold-tint: #3D3324;
+      --border: #45363D; --danger: #E28783; --danger-tint: #452E2D;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #241C22; --bg-card: #2E242B; --bg-card-alt: #362A32;
+    --text-primary: #F3E7DC; --text-secondary: #C6B4BC;
+    --accent-rose: #D98A96; --accent-rose-dark: #E7A3AC; --accent-rose-tint: #4A2E34;
+    --accent-sage: #92B79A; --accent-sage-tint: #2E3A31;
+    --accent-gold: #D6AC72; --accent-gold-tint: #3D3324;
+    --border: #45363D; --danger: #E28783; --danger-tint: #452E2D;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text-primary);
+    font-family: 'Tajawal', sans-serif; line-height: 1.6; padding: 20px 16px 60px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 10px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand h1 { font-family: 'Aref Ruqaa', serif; font-weight: 700; font-size: 34px; margin: 0; color: var(--accent-rose-dark); }
+  .brand p { margin: 2px 0 0; font-size: 13px; color: var(--text-secondary); }
+  .pulse-icon { width: 40px; height: 24px; flex-shrink: 0; }
+  .pulse-icon path { fill: none; stroke: var(--accent-rose); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 140; stroke-dashoffset: 140; animation: draw 1.4s ease-out forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pulse-icon path { animation: none; stroke-dashoffset: 0; } }
+
+  .header-actions { display: flex; gap: 8px; }
+  .quick-nav { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
+  .quick-nav-btn { flex-shrink: 0; background: var(--bg-card-alt); border: 1px solid var(--border); color: var(--accent-rose-dark); border-radius: 999px; padding: 7px 16px; font-size: 12.5px; font-family: 'Tajawal', sans-serif; cursor: pointer; white-space: nowrap; }
+  .quick-nav-btn:active { background: var(--accent-rose-tint); }
+  .flash-highlight { animation: flashHighlight 1.2s ease; }
+  @keyframes flashHighlight { 0% { box-shadow: 0 0 0 3px var(--accent-rose); } 100% { box-shadow: var(--shadow); } }
+  .log-stats { display: flex; gap: 10px; margin-bottom: 16px; }
+  .log-stat { flex: 1; background: var(--bg-card-alt); border-radius: 12px; padding: 12px; text-align: center; }
+  .log-stat .n { font-size: 20px; font-weight: 700; color: var(--accent-rose-dark); }
+  .log-stat .l { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .log-row { border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+  .log-row-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .log-row .cat { font-size: 11px; border-radius: 999px; padding: 2px 10px; flex-shrink: 0; }
+  .log-row .cat.dose { background: var(--accent-rose-tint); color: var(--accent-rose-dark); }
+  .log-row .cat.appt { background: var(--accent-gold-tint); color: var(--accent-gold); }
+  .log-row .cat.check { background: var(--accent-sage-tint); color: var(--accent-sage); }
+  .log-row .status { font-size: 11.5px; color: var(--text-secondary); }
+  .log-row .status.postponed { color: var(--danger); }
+  .log-row .label { font-size: 13.5px; font-weight: 600; margin-top: 6px; }
+  .log-row .when { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .adh-wrap { margin-bottom: 18px; }
+  .adh-overall { display: flex; gap: 10px; margin-bottom: 14px; }
+  .adh-overall .box { flex: 1; background: var(--bg-card-alt); border-radius: 12px; padding: 10px; text-align: center; }
+  .adh-overall .box .n { font-size: 18px; font-weight: 700; }
+  .adh-overall .box .l { font-size: 10.5px; color: var(--text-secondary); margin-top: 2px; }
+  .adh-chart { display: flex; gap: 6px; align-items: flex-end; height: 100px; margin: 12px 0 4px; }
+  .adh-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .adh-bar { width: 70%; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--accent-sage), var(--accent-gold)); min-height: 3px; }
+  .adh-bar.empty { background: var(--border); }
+  .adh-bar-pct { font-size: 9.5px; color: var(--text-secondary); margin-bottom: 3px; }
+  .adh-day-label { font-size: 10px; color: var(--text-secondary); margin-top: 5px; }
+  .adh-compare { display: flex; justify-content: space-between; font-size: 12.5px; margin: 10px 0; padding: 10px 12px; background: var(--bg-card-alt); border-radius: 10px; }
+  .adh-bestworst { display: flex; gap: 10px; margin-bottom: 10px; }
+  .adh-bestworst .box { flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; font-size: 12px; }
+  .adh-alert { background: var(--danger-tint); color: var(--danger); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; margin-bottom: 10px; }
+  .settings-btn { border: 1px solid var(--border); background: var(--bg-card); color: var(--text-primary); border-radius: 12px; padding: 9px 16px; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+  .settings-btn:hover { border-color: var(--accent-rose); }
+  .settings-btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent-rose); outline-offset: 2px; }
+
+  .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: 1.05fr 0.95fr; align-items: start; }
+    .col-left, .col-right { display: flex; flex-direction: column; gap: 18px; }
+  }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); }
+  .card h2 { font-size: 16px; margin: 0 0 16px; font-weight: 700; }
+  .card-sub { font-size: 12.5px; color: var(--text-secondary); margin: -10px 0 16px; }
+
+  /* Hero */
+  .hero { background: linear-gradient(160deg, var(--accent-rose-tint), var(--bg-card) 65%); }
+  .profile-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: var(--accent-rose); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+  .profile-name { font-size: 15px; font-weight: 700; }
+  .hero-empty { text-align: center; padding: 20px 8px; }
+  .hero-empty p { color: var(--text-secondary); margin-bottom: 16px; }
+  .hero-main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .hero-week { font-family: 'Aref Ruqaa', serif; font-size: 64px; font-weight: 700; color: var(--accent-rose-dark); line-height: 1; }
+  .hero-week-label { font-size: 16px; color: var(--text-secondary); }
+  .hero-days { font-size: 15px; color: var(--text-secondary); margin-top: 6px; }
+  .trimester-tag { display: inline-block; margin-top: 10px; background: var(--accent-sage-tint); color: var(--accent-sage); border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight: 500; }
+  .progress-track { height: 10px; background: var(--bg-card-alt); border-radius: 999px; margin: 18px 0 8px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-rose), var(--accent-gold)); border-radius: 999px; transition: width 0.6s ease; }
+  .progress-caption { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); }
+  .countdown-row { display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+  .stat-box { flex: 1; min-width: 130px; background: var(--bg-card-alt); border-radius: 14px; padding: 14px 16px; }
+  .stat-box .num { font-size: 24px; font-weight: 700; }
+  .stat-box .lbl { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+
+  label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+  input[type="date"], input[type="time"], input[type="text"], input[type="number"], select, textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+    font-family: 'Tajawal', sans-serif; font-size: 14px; color: var(--text-primary);
+  }
+  textarea { resize: vertical; min-height: 64px; }
+  .field { margin-bottom: 14px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row > div { flex: 1; }
+
+  .toggle-group { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .toggle-btn { flex: 1; min-width: 90px; padding: 9px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+  .toggle-btn.active { background: var(--accent-rose); border-color: var(--accent-rose); color: #fff; font-weight: 500; }
+
+  .btn-primary { background: var(--accent-rose); color: #fff; border: none; border-radius: 10px; padding: 11px 18px; font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; width: 100%; }
+  .btn-primary:hover { background: var(--accent-rose-dark); }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-secondary { flex: 1; background: var(--bg-card-alt); color: var(--text-primary); border: none; border-radius: 10px; padding: 10px; font-family: 'Tajawal', sans-serif; cursor: pointer; font-size: 13.5px; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-primary); border-radius: 10px; padding: 9px 14px; font-family: 'Tajawal', sans-serif; font-size: 13px; cursor: pointer; }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .btn-row > * { flex: 1; min-width: 120px; text-align: center; text-decoration: none; }
+
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip { border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: 'Tajawal', sans-serif; }
+  .chip.active { background: var(--accent-sage-tint); border-color: var(--accent-sage); color: var(--accent-sage); font-weight: 500; }
+
+  .energy-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  input[type="range"] { flex: 1; accent-color: var(--accent-rose); }
+  .energy-val { font-size: 13px; color: var(--accent-rose-dark); font-weight: 700; min-width: 54px; text-align: center; }
+
+  .log-item, .appt-item, .med-item { border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; position: relative; }
+  .log-item .date { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .log-item .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .log-item .tag { background: var(--accent-sage-tint); color: var(--accent-sage); font-size: 11.5px; border-radius: 999px; padding: 3px 10px; }
+  .log-item .note { font-size: 13.5px; margin-top: 4px; }
+  .energy-badge { display: inline-block; font-size: 12px; background: var(--accent-rose-tint); color: var(--accent-rose-dark); border-radius: 999px; padding: 3px 10px; margin-inline-end: 6px; }
+  .del-btn { position: absolute; top: 10px; left: 10px; background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 13px; padding: 4px 6px; border-radius: 6px; }
+  .del-btn:hover { color: var(--danger); background: var(--bg-card-alt); }
+
+  .appt-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .appt-item.past { opacity: 0.55; }
+  .appt-main { flex: 1; }
+  .appt-type { display: inline-block; background: var(--accent-gold-tint); color: var(--accent-gold); font-size: 11.5px; border-radius: 999px; padding: 3px 10px; margin-bottom: 6px; }
+  .appt-date { font-size: 14px; font-weight: 700; }
+  .appt-loc, .appt-note { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+
+  .section-label { font-size: 12.5px; color: var(--text-secondary); margin: 18px 0 8px; }
+  .section-label:first-child { margin-top: 0; }
+  .empty-note { color: var(--text-secondary); font-size: 13.5px; text-align: center; padding: 16px 4px; }
+
+  /* Medications */
+  .med-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .med-name { font-weight: 700; font-size: 14.5px; }
+  .med-dose { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+  .med-freq { display: inline-block; margin-top: 6px; font-size: 11.5px; background: var(--accent-sage-tint); color: var(--accent-sage); border-radius: 999px; padding: 3px 10px; }
+  .med-times { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .med-time-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12.5px; }
+  .ics-btn { font-size: 11.5px; padding: 6px 12px; white-space: nowrap; }
+  .dose-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+  .dose-info { font-size: 13.5px; }
+  .dose-info .sub { font-size: 11.5px; color: var(--text-secondary); }
+  .dose-btn { background: var(--accent-sage); color: #fff; border: none; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; cursor: pointer; font-family: 'Tajawal', sans-serif; white-space: nowrap; }
+  .dose-btn.done { background: var(--bg-card-alt); color: var(--text-secondary); }
+  .missed-tag { color: var(--danger); background: var(--danger-tint); border-radius: 999px; padding: 3px 10px; font-size: 11.5px; }
+
+  /* Charts */
+  .chart-block { margin-bottom: 22px; }
+  .chart-block:last-child { margin-bottom: 0; }
+  .chart-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .bar-label { font-size: 12.5px; width: 92px; flex-shrink: 0; color: var(--text-secondary); }
+  .bar-track { flex: 1; height: 14px; background: var(--bg-card-alt); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-sage), var(--accent-gold)); border-radius: 999px; }
+  .bar-count { font-size: 12px; color: var(--text-secondary); width: 20px; text-align: left; }
+
+  /* Modal */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(36, 28, 34, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg-card); border-radius: 18px; padding: 24px; max-width: 420px; width: 100%; box-shadow: var(--shadow); max-height: 88vh; overflow-y: auto; }
+  .modal.wide { max-width: 720px; }
+  .modal h3 { margin: 0 0 6px; font-size: 16px; }
+  .modal-section-title { font-size: 12.5px; color: var(--accent-rose-dark); font-weight: 700; margin: 18px 0 10px; }
+  .modal-section-title:first-of-type { margin-top: 16px; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+  .avatar-pick { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .avatar-pick .avatar { width: 56px; height: 56px; font-size: 18px; }
+  .file-btn { display: inline-block; border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 12.5px; cursor: pointer; background: var(--bg); }
+  .file-btn input { display: none; }
+  .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .logo-preview { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: var(--bg-card-alt); border: 1px solid var(--border); }
+
+  /* Report print sheet */
+  .report-sheet { background: #FEFBF8; color: #2A2028; width: 700px; max-width: 100%; font-family: 'Tajawal', sans-serif; direction: rtl; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(61, 44, 57, 0.14); }
+  .report-band { background: linear-gradient(120deg, #A85C68, #C1707D 55%, #BE8C4C); color: #fff; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+  .report-clinic { display: flex; align-items: center; gap: 10px; }
+  .report-clinic img { width: 42px; height: 42px; object-fit: contain; border-radius: 8px; background: #fff; padding: 3px; }
+  .report-clinic .cname { font-weight: 700; font-size: 14.5px; }
+  .report-clinic .dname { font-size: 11.5px; opacity: .85; margin-top: 1px; }
+  .report-title { font-family: 'Aref Ruqaa', serif; font-size: 28px; }
+  .report-body { padding: 28px 32px 30px; }
+  .report-patient { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid #E8DAD0; }
+  .report-patient .avatar { width: 50px; height: 50px; }
+  .report-patient .pname { font-weight: 700; font-size: 16px; }
+  .report-patient .pdate { font-size: 11.5px; color: #A99AA0; margin-top: 2px; }
+  .report-stats-strip { display: flex; margin-bottom: 26px; }
+  .report-stat { flex: 1; padding: 0 16px; text-align: center; }
+  .report-stat:not(:last-child) { border-left: 1px solid #E8DAD0; }
+  .report-stat .n { font-size: 19px; font-weight: 700; color: #A85C68; }
+  .report-stat .l { font-size: 11px; color: #7A6670; margin-top: 4px; }
+  .report-h2 { font-size: 12.5px; font-weight: 700; margin: 26px 0 12px; padding-right: 10px; border-right: 3px solid #C1707D; color: #3D2C39; }
+  .report-h2:first-of-type { margin-top: 0; }
+  .report-table-wrap { border: 1px solid #E8DAD0; border-radius: 10px; overflow: hidden; }
+  table.report-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.report-table th { background: #F3E7DC; color: #7A6670; font-weight: 600; text-align: right; padding: 9px 10px; }
+  table.report-table td { padding: 8px 10px; border-top: 1px solid #EFE4DA; }
+  table.report-table tbody tr:nth-child(even) td { background: #FBF6F1; }
+  .report-empty { font-size: 12.5px; color: #A99AA0; padding: 8px 2px; }
+  .report-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 16px; border-top: 1px solid #E8DAD0; }
+  .report-foot .ts { font-size: 10.5px; color: #A99AA0; }
+  .report-foot img.stamp { width: 64px; height: 64px; object-fit: contain; }
+
+  #reportHost { position: fixed; left: -9999px; top: 0; }
+
+  /* Backup */
+  .backup-row { display: flex; gap: 8px; }
+
+  /* Kick counter */
+  .kick-display { text-align: center; padding: 10px 0 18px; }
+  .kick-count { font-family: 'Aref Ruqaa', serif; font-size: 56px; color: var(--accent-rose-dark); line-height: 1; }
+  .kick-timer { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .kick-tap-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; background: var(--accent-rose); color: #fff; font-size: 16px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; }
+  .kick-tap-btn:active { background: var(--accent-rose-dark); }
+  .kick-controls { display: flex; gap: 8px; margin-top: 10px; }
+  .kick-history-item { display: flex; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; font-size: 13px; }
+  .kick-history-item .sub { color: var(--text-secondary); font-size: 12px; }
+
+  /* Weight */
+  .weight-row-item { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+  .weight-row-item .w { font-weight: 700; font-size: 14px; }
+  .weight-row-item .d { font-size: 12px; color: var(--text-secondary); }
+
+  /* Dev guide */
+  .dev-guide { display: flex; gap: 14px; align-items: center; background: var(--accent-sage-tint); border-radius: 14px; padding: 16px; }
+  .dev-guide .fruit { font-family: 'Aref Ruqaa', serif; font-size: 22px; color: var(--accent-sage); flex-shrink: 0; }
+  .dev-guide .txt { font-size: 13.5px; color: var(--text-primary); }
+  .dev-guide .txt .wk { font-size: 12px; color: var(--text-secondary); margin-bottom: 3px; }
+
+  /* Contacts */
+  .contact-item { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+  .contact-item .cn { font-weight: 700; font-size: 13.5px; }
+  .contact-item .cr { font-size: 12px; color: var(--text-secondary); }
+  .contact-call { background: var(--accent-sage); color: #fff; border-radius: 999px; padding: 6px 14px; font-size: 12.5px; text-decoration: none; white-space: nowrap; }
+
+  /* Checklist */
+  .checklist-item { display: flex; align-items: center; gap: 10px; padding: 8px 2px; border-bottom: 1px solid var(--border); }
+  .checklist-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent-sage); flex-shrink: 0; }
+  .checklist-item span { flex: 1; font-size: 13.5px; }
+  .checklist-item.done span { color: var(--text-secondary); text-decoration: line-through; }
+  .checklist-progress { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 10px; }
+
+  /* Attachments */
+  .attach-thumb { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); cursor: pointer; }
+  .attach-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.75); display: none; align-items: center; justify-content: center; z-index: 60; padding: 20px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 10px; }
+
+  .dose-toast {
+    display: none; position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--bg-card); border: 1px solid var(--accent-rose); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 16px 18px; z-index: 70; max-width: 360px; width: calc(100% - 32px);
+    flex-direction: column; gap: 10px; text-align: center;
+  }
+  .dose-toast.open { display: flex; }
+  .dose-toast #doseToastText { font-size: 14px; font-weight: 700; color: var(--accent-rose-dark); }
+  .toast-actions { display: flex; gap: 8px; justify-content: center; }
+
+  /* Custom date picker trigger + calendar */
+  .date-picker-trigger { width: 100%; text-align: right; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-family: 'Tajawal', sans-serif; font-size: 13.5px; color: var(--text-primary); cursor: pointer; }
+  .date-picker-trigger.placeholder { color: var(--text-secondary); }
+  .dp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+  .dp-nav { background: none; border: none; font-size: 20px; color: var(--accent-rose-dark); cursor: pointer; padding: 4px 12px; line-height: 1; }
+  .dp-title { font-weight: 700; font-size: 14.5px; }
+  .dp-hijri-range { text-align: center; font-size: 11.5px; color: var(--text-secondary); margin-bottom: 12px; }
+  .dp-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+  .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .dp-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; cursor: pointer; font-size: 12.5px; }
+  .dp-cell:not(.empty):hover { background: var(--bg-card-alt); }
+  .dp-cell .g { font-weight: 600; }
+  .dp-cell .h { font-size: 9px; color: var(--text-secondary); }
+  .dp-cell.today { border: 1px solid var(--accent-rose); }
+  .dp-cell.selected { background: var(--accent-rose); color: #fff; }
+  .dp-cell.selected .h { color: rgba(255, 255, 255, .85); }
+  .dp-cell.empty { visibility: hidden; cursor: default; }
+
+  /* Arabic AM/PM time selects */
+  .time-select-group { display: flex; gap: 4px; }
+  .time-select-group select { flex: 1; min-width: 0; padding: 10px 4px; text-align: center; }
+</style>
+</head>
+<body>
+<script>
+  window.onerror = function (msg, src, line, col, err) { console.error('JS ERROR:', msg, line, col); };
+  window.addEventListener('unhandledrejection', function (e) { console.error('PROMISE ERROR:', e.reason); });
+</script>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <svg class="pulse-icon" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 20 H35 L42 6 L52 34 L60 20 L68 26 L74 20 H118" />
+      </svg>
+      <div>
+        <h1>أم سارة</h1>
+        <p>رفيقكِ في رحلة الحمل</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="settings-btn" id="quickDoseBtn" type="button">تناولت جرعتي اليوم</button>
+      <button class="settings-btn" id="openSettings" type="button">الإعدادات</button>
+    </div>
+  </header>
+  <p class="card-sub" id="quickDoseStatus" style="margin:-14px 0 10px;"></p>
+  <div class="quick-nav" id="quickNav">
+    <button type="button" class="quick-nav-btn" data-modal="activityLogOverlay">السجل</button>
+    <button type="button" class="quick-nav-btn" data-modal="contactsOverlay">جهات الاتصال</button>
+    <button type="button" class="quick-nav-btn" data-modal="checklistOverlay">التجهيزات</button>
+    <button type="button" class="quick-nav-btn" data-modal="chartsOverlay">الرسوم البيانية</button>
+    <button type="button" class="quick-nav-btn" data-modal="kicksOverlay">الركلات</button>
+  </div>
+
+  <div class="grid">
+    <div class="col-left">
+
+      <div class="card hero" id="heroCard"></div>
+
+      <div class="card" id="devGuideCard" style="display:none;">
+        <h2>تطور الجنين هذا الأسبوع</h2>
+        <div id="devGuideBox"></div>
+      </div>
+
+      <div class="card">
+        <h2>وزن الأم</h2>
+        <div class="field-row">
+          <div class="field"><label for="weightVal">الوزن (كجم)</label><input type="number" id="weightVal" step="0.1" min="30" max="200"></div>
+          <div class="field"><label>التاريخ</label>
+            <input type="hidden" id="weightDate">
+            <button type="button" class="date-picker-trigger placeholder" id="weightDateTrigger" data-target="weightDate">اختيار التاريخ</button>
+          </div>
+        </div>
+        <button class="btn-primary" id="addWeight" type="button">حفظ الوزن</button>
+        <div id="weightChartBox" style="margin-top:16px;"></div>
+        <div class="section-label">السجل</div>
+        <div id="weightList"></div>
+      </div>
+
+      <div class="card">
+        <h2>تسجيل اليوم</h2>
+        <label for="energyRange">مستوى الطاقة</label>
+        <div class="energy-row">
+          <input type="range" id="energyRange" min="1" max="5" value="3">
+          <span class="energy-val" id="energyVal">متوسط</span>
+        </div>
+        <label>الأعراض</label>
+        <div class="chip-grid" id="symptomChips"></div>
+        <div class="field">
+          <label for="noteInput">ملاحظات</label>
+          <textarea id="noteInput" placeholder="أي شيء تودّين تسجيله عن يومك..."></textarea>
+        </div>
+        <button class="btn-primary" id="saveLog" type="button">حفظ التسجيل</button>
+        <div id="logHistory" style="margin-top:18px;"></div>
+      </div>
+
+    </div>
+
+    <div class="col-right">
+
+      <div class="card">
+        <h2>المواعيد والفحوصات</h2>
+        <p class="card-sub" id="notifyStatus"></p>
+        <div class="field-row">
+          <div class="field">
+            <label for="apptType">النوع</label>
+            <select id="apptType">
+              <option>فحص روتيني</option><option>سونار</option><option>تحليل دم</option>
+              <option>لقاح</option><option>استشارة</option><option>أخرى</option>
+            </select>
+          </div>
+          <div class="field"><label>التاريخ</label>
+            <input type="hidden" id="apptDate">
+            <button type="button" class="date-picker-trigger placeholder" id="apptDateTrigger" data-target="apptDate">اختيار التاريخ</button>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>الوقت</label><div id="apptTimeGroup"></div></div>
+          <div class="field"><label for="apptLoc">الجهة / المكان</label><input type="text" id="apptLoc" placeholder="اسم العيادة أو المستشفى"></div>
+        </div>
+        <div class="field"><label for="apptNote">ملاحظة</label><input type="text" id="apptNote" placeholder="اختياري"></div>
+        <div class="field">
+          <label class="file-btn">إرفاق صورة نتيجة (سونار / تحليل)<input type="file" accept="image/*" id="apptAttachInput"></label>
+        </div>
+        <button class="btn-primary" id="addAppt" type="button">إضافة موعد</button>
+        <div id="apptList" style="margin-top:18px;"></div>
+      </div>
+
+      <div class="card">
+        <h2>الأدوية والجرعات</h2>
+        <div class="field">
+          <label for="medName">اسم الدواء</label>
+          <input type="text" id="medName" placeholder="مثال: حمض الفوليك">
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="medDose">الجرعة</label><input type="text" id="medDose" placeholder="مثال: قرص واحد"></div>
+          <div class="field"><label for="medFreq">التكرار</label>
+            <select id="medFreq">
+              <option value="daily">يوميًا (مرة واحدة)</option>
+              <option value="weekly">أسبوعيًا</option>
+              <option value="multiple">عدة مرات في اليوم</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row" id="medExtraRow" style="display:none;">
+          <div class="field" id="medWeekdayField" style="display:none;">
+            <label for="medWeekday">اليوم</label>
+            <select id="medWeekday">
+              <option value="0">الأحد</option><option value="1">الاثنين</option><option value="2">الثلاثاء</option>
+              <option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option><option value="6">السبت</option>
+            </select>
+          </div>
+          <div class="field" id="medTimesField" style="display:none;">
+            <label for="medTimes">عدد المرات يوميًا</label>
+            <input type="number" id="medTimes" min="2" max="6" value="2">
+          </div>
+        </div>
+        <div class="field">
+          <label>أوقات الجرعات (اختياري — لتفعيل التنبيه المرئي والصوتي)</label>
+          <div id="medTimesInputs" class="field-row" style="flex-wrap:wrap;"></div>
+        </div>
+        <button class="btn-primary" id="addMed" type="button">إضافة دواء</button>
+
+        <div class="section-label">تسجيل جرعة بالصوت</div>
+        <button class="btn-outline" id="voiceDoseBtn" type="button" style="width:100%;">اضغطي وقولي اسم الدواء</button>
+        <p class="card-sub" id="voiceDoseStatus" style="margin-top:8px;"></p>
+        <div id="voiceDoseConfirm" style="display:none;margin-bottom:10px;"></div>
+
+        <div class="section-label">جرعات اليوم</div>
+        <div id="todayDoses"></div>
+
+        <div class="section-label">الجرعات الفائتة (آخر 7 أيام)</div>
+        <div id="missedDoses"></div>
+
+        <div class="section-label">قائمة الأدوية</div>
+        <div id="medList"></div>
+      </div>
+
+      <div class="card">
+        <h2>تقرير الحمل</h2>
+        <p class="card-sub">تقرير قابل للمعاينة قبل التنزيل، يتضمن شعار العيادة وبيانات الطبيبة إن أُضيفت.</p>
+        <button class="btn-primary" id="previewReport" type="button">معاينة التقرير</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsOverlay">
+  <div class="modal">
+    <h3>الإعدادات</h3>
+
+    <div class="modal-section-title">بداية الحمل</div>
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="modeDue" type="button">تاريخ الولادة المتوقع</button>
+      <button class="toggle-btn" id="modeLmp" type="button">تاريخ آخر دورة</button>
+    </div>
+    <div class="field">
+      <label id="dateFieldLabel">تاريخ الولادة المتوقع</label>
+      <input type="hidden" id="dateField">
+      <button type="button" class="date-picker-trigger placeholder" id="dateFieldTrigger" data-target="dateField">اختيار التاريخ</button>
+    </div>
+
+    <div class="modal-section-title">البيانات الشخصية</div>
+    <div class="avatar-pick">
+      <div class="avatar" id="settingsAvatarPreview">؟</div>
+      <label class="file-btn">اختيار صورة<input type="file" accept="image/*" id="photoInput"></label>
+    </div>
+    <div class="field"><label for="nameField">الاسم</label><input type="text" id="nameField" placeholder="اسمكِ"></div>
+
+    <div class="modal-section-title">بيانات الطبيبة والعيادة</div>
+    <div class="logo-row">
+      <img class="logo-preview" id="logoPreview" alt="">
+      <label class="file-btn">شعار العيادة<input type="file" accept="image/*" id="logoInput"></label>
+    </div>
+    <div class="field-row">
+      <div class="field"><label for="doctorNameField">اسم الطبيبة</label><input type="text" id="doctorNameField"></div>
+      <div class="field"><label for="clinicNameField">اسم العيادة</label><input type="text" id="clinicNameField"></div>
+    </div>
+    <div class="logo-row">
+      <img class="logo-preview" id="stampPreview" alt="">
+      <label class="file-btn">ختم الطبيبة<input type="file" accept="image/*" id="stampInput"></label>
+    </div>
+
+    <div class="modal-section-title">التذكيرات</div>
+    <button class="btn-outline" id="enableNotify" type="button" style="width:100%;">تفعيل تذكير المواعيد في هذا المتصفح</button>
+    <button class="btn-outline" id="enableDoseAlert" type="button" style="width:100%;margin-top:8px;">تفعيل تنبيه الجرعات (مرئي وصوتي)</button>
+    <p class="card-sub" id="doseAlertStatus" style="margin-top:8px;"></p>
+    <div class="field" style="margin-top:12px;">
+      <label for="adherenceThresholdField">تنبيه إن انخفض الالتزام الأسبوعي عن (%)</label>
+      <input type="number" id="adherenceThresholdField" min="10" max="100" step="5" placeholder="70">
+    </div>
+
+    <div class="modal-section-title">ساعات الهدوء الليلية</div>
+    <p class="card-sub" style="margin-top:-6px;">إيقاف الصوت والتنبيه المرئي خلال هذه الفترة، مع الاستمرار بتسجيل الجرعات في السجل بصمت.</p>
+    <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:12px;">
+      <input type="checkbox" id="quietHoursEnabledField" style="width:18px;height:18px;accent-color:var(--accent-rose);">
+      تفعيل ساعات الهدوء
+    </label>
+    <div class="field-row">
+      <div class="field"><label>من الساعة</label><div id="quietStartGroup"></div></div>
+      <div class="field"><label>إلى الساعة</label><div id="quietEndGroup"></div></div>
+    </div>
+
+    <div class="modal-section-title">المشاركة العائلية (تجريبي)</div>
+    <p class="card-sub" style="margin-top:-6px;">أدخلي نفس الرمز على جهازين ليتشاركا نفس البيانات. أي إضافة تُرفع تلقائيًا، وتظهر عند الآخر بعد فتح التطبيق أو تحديث الصفحة.</p>
+    <div class="field">
+      <label for="familyCodeField">رمز العائلة</label>
+      <input type="text" id="familyCodeField" placeholder="مثال: AB12CD" style="text-transform:uppercase;">
+    </div>
+    <div class="backup-row">
+      <button class="btn-secondary" id="generateFamilyCode" type="button">توليد رمز جديد</button>
+      <button class="btn-secondary" id="connectFamilyCode" type="button">اتصال بهذا الرمز</button>
+    </div>
+    <button class="btn-outline" id="forcePushFamily" type="button" style="width:100%;margin-top:8px;">رفع نسختي الحالية كنسخة معتمدة</button>
+    <p class="card-sub" id="familySyncStatus" style="margin-top:8px;"></p>
+
+    <div class="modal-section-title">نسخة احتياطية</div>
+    <p class="card-sub" style="margin-top:-6px;">البيانات محفوظة في هذا المتصفح فقط. صدّري نسخة بشكل دوري لتفادي فقدانها.</p>
+    <div class="backup-row">
+      <button class="btn-secondary" id="exportBackup" type="button">تصدير نسخة احتياطية</button>
+      <label class="btn-secondary" style="text-align:center;cursor:pointer;">استيراد نسخة<input type="file" accept="application/json" id="importBackupInput" style="display:none;"></label>
+    </div>
+    <p class="card-sub" id="backupReminderStatus" style="margin-top:8px;"></p>
+
+    <div class="modal-actions" style="margin-top:20px;">
+      <button class="btn-secondary" id="cancelSettings" type="button">إلغاء</button>
+      <button class="btn-primary" id="saveSettings" type="button">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITY LOG MODAL -->
+<div class="modal-overlay" id="activityLogOverlay">
+  <div class="modal wide">
+    <h3>سجل الجرعات والتنبيهات</h3>
+
+    <div class="log-stats" id="logStats"></div>
+    <div id="adherenceBox"></div>
+
+    <div class="toggle-group" id="logTypeFilter">
+      <button class="toggle-btn active" data-cat="all" type="button">الكل</button>
+      <button class="toggle-btn" data-cat="جرعات" type="button">جرعات</button>
+      <button class="toggle-btn" data-cat="مواعيد" type="button">مواعيد</button>
+      <button class="toggle-btn" data-cat="فحوصات" type="button">فحوصات</button>
+    </div>
+
+    <div class="field">
+      <label for="logSearch">بحث باسم الدواء أو الموعد</label>
+      <input type="text" id="logSearch" placeholder="اكتبي للبحث...">
+    </div>
+
+    <div class="field-row">
+      <div class="field"><label>من تاريخ</label>
+        <input type="hidden" id="logFromDate">
+        <button type="button" class="date-picker-trigger placeholder" id="logFromDateTrigger" data-target="logFromDate">اختياري</button>
+      </div>
+      <div class="field"><label>إلى تاريخ</label>
+        <input type="hidden" id="logToDate">
+        <button type="button" class="date-picker-trigger placeholder" id="logToDateTrigger" data-target="logToDate">اختياري</button>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:-6px;">
+      <button class="btn-outline" id="logThisWeek" type="button">هذا الأسبوع</button>
+      <button class="btn-outline" id="logClearDates" type="button">مسح التواريخ</button>
+    </div>
+
+    <div class="section-label">النتائج</div>
+    <div id="logList"></div>
+
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="btn-primary" id="exportLogPdf" type="button">تصدير النتائج إلى PDF</button>
+    </div>
+    <div class="modal-actions" style="margin-top:10px;">
+      <button class="btn-secondary" id="closeActivityLogModal" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS MODAL -->
+<div class="modal-overlay" id="chartsOverlay">
+  <div class="modal">
+    <h3>الرسوم البيانية الأسبوعية</h3>
+    <div id="chartsBox"></div>
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn-secondary" id="closeChartsModal" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- KICKS MODAL -->
+<div class="modal-overlay" id="kicksOverlay">
+  <div class="modal">
+    <h3>عدّاد حركة الجنين</h3>
+    <p class="card-sub">للاستخدام حسب توصية طبيبتك بخصوص العدد والتوقيت المناسبَين لحالتك.</p>
+    <div class="kick-display">
+      <div class="kick-count" id="kickCount">0</div>
+      <div class="kick-timer" id="kickTimer">لم تبدأ الجلسة</div>
+    </div>
+    <button class="kick-tap-btn" id="kickTapBtn" type="button">ركلة</button>
+    <div class="kick-controls">
+      <button class="btn-secondary" id="kickStartStop" type="button">بدء الجلسة</button>
+      <button class="btn-secondary" id="kickSave" type="button" disabled>حفظ الجلسة</button>
+    </div>
+    <div class="section-label">جلسات سابقة</div>
+    <div id="kickHistory"></div>
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn-secondary" id="closeKicksModal" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS MODAL -->
+<div class="modal-overlay" id="contactsOverlay">
+  <div class="modal">
+    <h3>جهات اتصال سريعة</h3>
+    <div class="field-row">
+      <div class="field"><label for="contactName">الاسم</label><input type="text" id="contactName" placeholder="د. فلانة"></div>
+      <div class="field"><label for="contactRole">الصفة</label><input type="text" id="contactRole" placeholder="الطبيبة / المستشفى"></div>
+    </div>
+    <div class="field"><label for="contactPhone">رقم الجوال</label><input type="text" id="contactPhone" placeholder="05xxxxxxxx"></div>
+    <button class="btn-primary" id="addContact" type="button">إضافة جهة اتصال</button>
+    <div id="contactList" style="margin-top:16px;"></div>
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn-secondary" id="closeContactsModal" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST MODAL -->
+<div class="modal-overlay" id="checklistOverlay">
+  <div class="modal">
+    <h3>قائمة تجهيزات الولادة</h3>
+    <div class="checklist-progress" id="checklistProgress"></div>
+    <div id="checklistBox"></div>
+    <div class="field-row" style="margin-top:14px;">
+      <div class="field"><label for="checklistNew">إضافة عنصر</label><input type="text" id="checklistNew" placeholder="مثال: شاحن الجوال"></div>
+    </div>
+    <button class="btn-outline" id="addChecklistItem" type="button" style="width:100%;">إضافة للقائمة</button>
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn-secondary" id="closeChecklistModal" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- DATE PICKER MODAL -->
+<div class="modal-overlay" id="datePickerOverlay">
+  <div class="modal" style="max-width:340px;">
+    <div class="dp-header">
+      <button type="button" id="dpPrevMonth" class="dp-nav">‹</button>
+      <div class="dp-title" id="dpMonthYear"></div>
+      <button type="button" id="dpNextMonth" class="dp-nav">›</button>
+    </div>
+    <div class="dp-hijri-range" id="dpHijriRange"></div>
+    <div class="dp-weekdays">
+      <span>أحد</span><span>اثنين</span><span>ثلاثاء</span><span>أربعاء</span><span>خميس</span><span>جمعة</span><span>سبت</span>
+    </div>
+    <div class="dp-grid" id="dpGrid"></div>
+    <div class="modal-actions" style="margin-top:14px;">
+      <button class="btn-secondary" id="dpToday" type="button">اليوم</button>
+      <button class="btn-secondary" id="dpCancel" type="button">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT PREVIEW MODAL -->
+<div class="modal-overlay" id="reportOverlay">
+  <div class="modal wide">
+    <h3>معاينة التقرير</h3>
+    <div style="overflow-x:auto; border:1px solid var(--border); border-radius:12px; margin-bottom:16px;">
+      <div id="reportPreviewMount"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" id="downloadPdf" type="button">تنزيل PDF</button>
+      <button class="btn-outline" id="sharePdf" type="button">مشاركة الملف</button>
+    </div>
+    <div class="btn-row">
+      <a class="btn-secondary" id="whatsappShare" href="#" target="_blank" rel="noopener">مشاركة نصية عبر واتساب</a>
+      <a class="btn-secondary" id="emailShare" href="#">مشاركة نصية عبر البريد</a>
+    </div>
+    <div class="modal-actions" style="margin-top:14px;">
+      <button class="btn-secondary" id="closeReport" type="button" style="flex:1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<div id="reportHost"></div>
+
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<div class="dose-toast" id="doseToast">
+  <div id="doseToastText"></div>
+  <div class="toast-actions">
+    <button class="btn-primary" id="doseToastTake" type="button" style="width:auto;padding:8px 16px;">تم تناولها</button>
+    <button class="btn-secondary" id="doseToastDismiss" type="button" style="flex:none;padding:8px 16px;">تأجيل 30 دقيقة</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const DAY = 86400000;
+  const FULL_TERM_DAYS = 280;
+  const SYMPTOM_LIST = ["غثيان", "توعك صباحي", "تعب", "صداع", "تقلصات خفيفة", "حرقة معدة", "ألم ظهر", "دوخة", "تورم", "حركة الجنين"];
+  const WEEKDAY_NAMES = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+
+  const store = {
+    get(key, fallback) {
+      try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+      catch (e) { return fallback; }
+    },
+    set(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        scheduleCloudPush();
+        return true;
+      } catch (e) { return false; }
+    }
+  };
+  const FIREBASE_URL = 'https://amal-9e15a-default-rtdb.firebaseio.com';
+
+  let settings = store.get('nabd_settings', null);
+  let logs = store.get('nabd_logs', []);
+  let appts = store.get('nabd_appointments', []);
+  let meds = store.get('nabd_meds', []);
+  let doseLogs = store.get('nabd_dose_logs', []);
+  let notified = store.get('nabd_notified', []);
+  let weightEntries = store.get('nabd_weight', []);
+  let kickSessions = store.get('nabd_kicks', []);
+  let contacts = store.get('nabd_contacts', []);
+  let checklist = store.get('nabd_checklist', null);
+  if (checklist === null) {
+    checklist = ["حقيبة ملابس الأم", "ملابس المولود", "شهادة الأحوال المدنية / الهوية", "بطاقة التأمين الطبي", "مستلزمات النظافة الشخصية", "شاحن الجوال", "وسادة ومنشفة", "حفاضات ومناديل مبللة", "ملف الفحوصات والتقارير الطبية", "ماء وخفيف من الطعام"].map(t => ({ id: uid(), text: t, done: false }));
+    store.set('nabd_checklist', checklist);
+  }
+  let selectedSymptoms = [];
+  let activityLog = store.get('nabd_activity_log', []);
+  let snoozedAlerts = store.get('nabd_snoozed', []);
+  function isQuietNow() {
+    if (!settings || !settings.quietHoursEnabled || !settings.quietStart || !settings.quietEnd) return false;
+    const now = new Date();
+    const curMin = now.getHours() * 60 + now.getMinutes();
+    const [sh, sm] = settings.quietStart.split(':').map(Number);
+    const [eh, em] = settings.quietEnd.split(':').map(Number);
+    const startMin = sh * 60 + sm, endMin = eh * 60 + em;
+    if (startMin === endMin) return false;
+    return startMin < endMin ? (curMin >= startMin && curMin < endMin) : (curMin >= startMin || curMin < endMin);
+  }
+  function logActivity(entry) {
+    entry.id = uid();
+    entry.ts = entry.ts || Date.now();
+    activityLog.push(entry);
+    if (activityLog.length > 500) activityLog = activityLog.slice(-400);
+    store.set('nabd_activity_log', activityLog);
+  }
+  function apptCategory(type) {
+    return ['فحص روتيني', 'سونار', 'تحليل دم'].includes(type) ? 'فحوصات' : 'مواعيد';
+  }
+
+  /* ---------------- Family cloud sync (experimental) ---------------- */
+  let cloudPushTimer = null;
+  let cloudSyncing = false;
+  function familyCloudPath() {
+    if (!settings || !settings.familyCode) return null;
+    return `${FIREBASE_URL}/families/${encodeURIComponent(settings.familyCode)}.json`;
+  }
+  function collectFullState() {
+    return { settings, logs, appts, meds, doseLogs, weightEntries, kickSessions, contacts, checklist, updatedAt: Date.now() };
+  }
+  function setSyncStatus(msg) {
+    const el = document.getElementById('familySyncStatus');
+    if (el) el.textContent = msg;
+  }
+  function scheduleCloudPush() {
+    if (!settings || !settings.familyCode) return;
+    clearTimeout(cloudPushTimer);
+    cloudPushTimer = setTimeout(pushToCloud, 1200);
+  }
+  async function pushToCloud() {
+    const path = familyCloudPath();
+    if (!path) return;
+    try {
+      setSyncStatus('جارٍ رفع التحديث...');
+      await fetch(path, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(collectFullState()) });
+      setSyncStatus('تمت المزامنة ✓ (' + new Date().toLocaleTimeString('ar-SA-u-nu-latn', { hour: '2-digit', minute: '2-digit' }) + ')');
+    } catch (e) {
+      setSyncStatus('تعذّرت المزامنة — تحقّقي من الإنترنت');
+    }
+  }
+  function isEmptyState(st) {
+    const s = st.settings;
+    const hasSettings = s && (s.dueDate || s.name);
+    return !hasSettings && !(st.logs && st.logs.length) && !(st.appts && st.appts.length) && !(st.meds && st.meds.length) && !(st.weightEntries && st.weightEntries.length);
+  }
+  async function pullFromCloud() {
+    const path = familyCloudPath();
+    if (!path) return false;
+    try {
+      setSyncStatus('جارٍ جلب آخر تحديث...');
+      const res = await fetch(path);
+      const data = await res.json();
+      if (!data) { setSyncStatus('لا توجد بيانات مشتركة بعد لهذا الرمز'); return false; }
+      const localSnapshot = { settings, logs, appts, meds, weightEntries };
+      if (isEmptyState(data) && !isEmptyState(localSnapshot)) {
+        setSyncStatus('تم تجاهل نسخة سحابية فارغة، وإعادة رفع بياناتك للحفاظ عليها');
+        await pushToCloud();
+        return false;
+      }
+      const keepCode = settings ? settings.familyCode : null;
+      settings = data.settings || settings;
+      if (settings && keepCode) settings.familyCode = keepCode;
+      logs = data.logs || [];
+      appts = data.appts || [];
+      meds = data.meds || [];
+      doseLogs = data.doseLogs || [];
+      weightEntries = data.weightEntries || [];
+      kickSessions = data.kickSessions || [];
+      contacts = data.contacts || [];
+      checklist = data.checklist || checklist;
+      localStorage.setItem('nabd_settings', JSON.stringify(settings));
+      localStorage.setItem('nabd_logs', JSON.stringify(logs));
+      localStorage.setItem('nabd_appointments', JSON.stringify(appts));
+      localStorage.setItem('nabd_meds', JSON.stringify(meds));
+      localStorage.setItem('nabd_dose_logs', JSON.stringify(doseLogs));
+      localStorage.setItem('nabd_weight', JSON.stringify(weightEntries));
+      localStorage.setItem('nabd_kicks', JSON.stringify(kickSessions));
+      localStorage.setItem('nabd_contacts', JSON.stringify(contacts));
+      localStorage.setItem('nabd_checklist', JSON.stringify(checklist));
+      setSyncStatus('تم التحديث من النسخة المشتركة ✓');
+      return true;
+    } catch (e) {
+      setSyncStatus('تعذّر الاتصال بالمزامنة — تحقّقي من الإنترنت');
+      return false;
+    }
+  }
+  function rerenderEverything() {
+    renderHero(); renderChips(); renderLogs(); renderCharts(); renderAppts();
+    renderMeds(); renderWeight(); renderKickHistory(); renderContacts(); renderChecklist();
+  }
+  function randomFamilyCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+  }
+  let kickTimerHandle = null, kickStartedAt = null, kickTapTimes = [], kickRunning = false;
+
+  const FETAL_DEV = {
+    4: ["حبة خشخاش", ""], 5: ["بذرة سمسم", ""], 6: ["حبة عدس", ""], 7: ["حبة توت", ""],
+    8: ["حبة عنب صغيرة", ""], 9: ["حبة زيتون", ""], 10: ["حبة فراولة", ""], 11: ["حبة تين", ""],
+    12: ["ليمونة صغيرة", ""], 13: ["حبة خوخ", ""], 14: ["ليمونة", ""], 15: ["تفاحة صغيرة", ""],
+    16: ["أفوكادو", ""], 17: ["حبة كمثرى", ""], 18: ["فلفل رومي", ""], 19: ["طماطم كبيرة", ""],
+    20: ["موزة", ""], 21: ["جزرة كبيرة", ""], 22: ["باذنجانة صغيرة", ""], 23: ["حبة مانجو", ""],
+    24: ["كوز ذرة", ""], 25: ["قرنبيط صغير", ""], 26: ["كوسة كبيرة", ""], 27: ["قرع صغير", ""],
+    28: ["باذنجانة كبيرة", ""], 29: ["يقطينة صغيرة", ""], 30: ["كرنب صغير", ""], 31: ["جوز هند", ""],
+    32: ["شمام صغير", ""], 33: ["أناناس", ""], 34: ["شمام", ""], 35: ["بطيخة صغيرة", ""],
+    36: ["خس رومي كبير", ""], 37: ["سلق سويسري", ""], 38: ["كراث كبير", ""], 39: ["بطيخة", ""], 40: ["يقطين كبير", ""]
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const HIJRI_MONTHS = ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"];
+  const WEEKDAY_AR = ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"];
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function hijriParts(date) {
+    const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
+    let jd = Math.floor((1461 * (y + 4800 + Math.floor((m - 14) / 12))) / 4)
+      + Math.floor((367 * (m - 2 - 12 * Math.floor((m - 14) / 12))) / 12)
+      - Math.floor((3 * Math.floor((y + 4900 + Math.floor((m - 14) / 12)) / 100)) / 4)
+      + d - 32075;
+    let l = jd - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    const j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+    l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+    const hMonth = Math.floor((24 * l) / 709);
+    const hDay = l - Math.floor((709 * hMonth) / 24);
+    const hYear = 30 * n + j - 30;
+    return { day: hDay, month: hMonth, monthName: HIJRI_MONTHS[hMonth - 1], year: hYear };
+  }
+  function toHijriStr(dateInput) {
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return '';
+    const p = hijriParts(date);
+    return `${p.day} ${p.monthName} ${p.year}`;
+  }
+  function fmtDate(d) {
+    const dateObj = new Date(d);
+    const greg = dateObj.toLocaleDateString('ar-SA-u-ca-gregory-nu-latn', { day: 'numeric', month: 'long', year: 'numeric' });
+    const hijri = toHijriStr(dateObj);
+    return hijri ? `${greg} (${hijri} هـ)` : greg;
+  }
+  function syncDateTrigger(id) {
+    const inp = $(id), btn = $(id + 'Trigger');
+    if (!btn) return;
+    if (inp && inp.value) { btn.textContent = fmtDate(inp.value); btn.classList.remove('placeholder'); }
+    else { btn.textContent = 'اختيار التاريخ'; btn.classList.add('placeholder'); }
+  }
+  function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+  /* ---------------- Arabic AM/PM time selects ---------------- */
+  function buildTimeSelectHTML(slot, idPrefix) {
+    let hourOpts = '<option value="">— اختياري —</option>';
+    for (let h = 1; h <= 12; h++) hourOpts += `<option value="${h}">${h}</option>`;
+    let minOpts = '';
+    for (let m = 0; m < 60; m++) minOpts += `<option value="${pad2(m)}">${pad2(m)}</option>`;
+    return `<div class="time-select-group" data-slot="${slot}">
+      <select class="tp-hour" id="${idPrefix}Hour${slot}">${hourOpts}</select>
+      <select class="tp-min" id="${idPrefix}Min${slot}">${minOpts}</select>
+      <select class="tp-period" id="${idPrefix}Period${slot}"><option value="ص">ص</option><option value="م">م</option></select>
+    </div>`;
+  }
+  function readTimeSelect(idPrefix, slot) {
+    const hourEl = $(`${idPrefix}Hour${slot}`);
+    if (!hourEl || !hourEl.value) return '';
+    let h = Number(hourEl.value);
+    const min = $(`${idPrefix}Min${slot}`).value;
+    const period = $(`${idPrefix}Period${slot}`).value;
+    if (period === 'م' && h !== 12) h += 12;
+    if (period === 'ص' && h === 12) h = 0;
+    return pad2(h) + ':' + min;
+  }
+  function setTimeSelect(idPrefix, slot, hhmm) {
+    const hourEl = $(`${idPrefix}Hour${slot}`);
+    if (!hourEl) return;
+    if (!hhmm) { hourEl.value = ''; return; }
+    const [H, M] = hhmm.split(':').map(Number);
+    let period = H >= 12 ? 'م' : 'ص';
+    let h12 = H % 12; if (h12 === 0) h12 = 12;
+    hourEl.value = String(h12);
+    $(`${idPrefix}Min${slot}`).value = pad2(M);
+    $(`${idPrefix}Period${slot}`).value = period;
+  }
+
+  /* ---------------- Custom date picker (Gregorian grid + Hijri sub-labels) ---------------- */
+  let dpTargetId = null, dpViewYear = 0, dpViewMonth = 0;
+  function openDatePicker(targetId) {
+    dpTargetId = targetId;
+    const cur = $(targetId).value;
+    const base = cur ? new Date(cur) : new Date();
+    dpViewYear = base.getFullYear(); dpViewMonth = base.getMonth();
+    renderDatePicker();
+    $('datePickerOverlay').classList.add('open');
+  }
+  function renderDatePicker() {
+    const first = new Date(dpViewYear, dpViewMonth, 1);
+    const startOffset = first.getDay();
+    const daysInMonth = new Date(dpViewYear, dpViewMonth + 1, 0).getDate();
+    const monthNamesG = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+    $('dpMonthYear').textContent = `${monthNamesG[dpViewMonth]} ${dpViewYear}`;
+    const firstH = hijriParts(first);
+    const lastH = hijriParts(new Date(dpViewYear, dpViewMonth, daysInMonth));
+    $('dpHijriRange').textContent = firstH.month === lastH.month
+      ? `${firstH.monthName} ${firstH.year} هـ`
+      : `${firstH.monthName} - ${lastH.monthName} ${lastH.year} هـ`;
+    const todayIso = todayStr();
+    const curVal = $(dpTargetId) ? $(dpTargetId).value : '';
+    let cellsHtml = '';
+    for (let i = 0; i < startOffset; i++) cellsHtml += `<div class="dp-cell empty"></div>`;
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateObj = new Date(dpViewYear, dpViewMonth, d);
+      const iso = dpViewYear + '-' + pad2(dpViewMonth + 1) + '-' + pad2(d);
+      const hp = hijriParts(dateObj);
+      const cls = ['dp-cell'];
+      if (iso === todayIso) cls.push('today');
+      if (iso === curVal) cls.push('selected');
+      cellsHtml += `<div class="${cls.join(' ')}" data-iso="${iso}"><span class="g">${d}</span><span class="h">${hp.day}</span></div>`;
+    }
+    $('dpGrid').innerHTML = cellsHtml;
+    $('dpGrid').querySelectorAll('.dp-cell:not(.empty)').forEach(cell => {
+      cell.addEventListener('click', () => {
+        if (!dpTargetId) return;
+        $(dpTargetId).value = cell.dataset.iso;
+        syncDateTrigger(dpTargetId);
+        $('datePickerOverlay').classList.remove('open');
+        if (dpTargetId === 'logFromDate' || dpTargetId === 'logToDate') renderActivityLog();
+      });
+    });
+  }
+  $('dpPrevMonth').addEventListener('click', () => { dpViewMonth--; if (dpViewMonth < 0) { dpViewMonth = 11; dpViewYear--; } renderDatePicker(); });
+  $('dpNextMonth').addEventListener('click', () => { dpViewMonth++; if (dpViewMonth > 11) { dpViewMonth = 0; dpViewYear++; } renderDatePicker(); });
+  $('dpToday').addEventListener('click', () => {
+    if (!dpTargetId) return;
+    $(dpTargetId).value = todayStr();
+    syncDateTrigger(dpTargetId);
+    $('datePickerOverlay').classList.remove('open');
+    if (dpTargetId === 'logFromDate' || dpTargetId === 'logToDate') renderActivityLog();
+  });
+  $('dpCancel').addEventListener('click', () => { $('datePickerOverlay').classList.remove('open'); });
+  $('datePickerOverlay').addEventListener('click', (e) => { if (e.target === $('datePickerOverlay')) $('datePickerOverlay').classList.remove('open'); });
+  document.querySelectorAll('.date-picker-trigger').forEach(btn => {
+    btn.addEventListener('click', () => openDatePicker(btn.dataset.target));
+  });
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str || ''; return div.innerHTML; }
+  function initials(name) {
+    if (!name) return '؟';
+    const parts = name.trim().split(/\s+/);
+    return (parts[0] ? parts[0][0] : '') + (parts[1] ? parts[1][0] : '');
+  }
+
+  function resizeImage(file, maxDim, cb) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = new Image();
+      img.onload = function () {
+        let w = img.width, h = img.height;
+        if (w > h && w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; }
+        else if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        cb(canvas.toDataURL('image/png'));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ---------------- Pregnancy calc ---------------- */
+  function pregnancyState() {
+    if (!settings || !settings.dueDate) return null;
+    const due = new Date(settings.dueDate);
+    const start = new Date(due.getTime() - FULL_TERM_DAYS * DAY);
+    const now = new Date();
+    const elapsedDays = Math.floor((now - start) / DAY);
+    const clampedDays = Math.max(0, elapsedDays);
+    const weeks = Math.floor(clampedDays / 7);
+    const days = clampedDays % 7;
+    const remaining = Math.floor((due - now) / DAY);
+    let trimester = 'الثلث الأول';
+    if (weeks >= 27) trimester = 'الثلث الثالث'; else if (weeks >= 13) trimester = 'الثلث الثاني';
+    return { due, start, weeks, days, clampedDays, remaining, trimester, pct: Math.min(100, (clampedDays / FULL_TERM_DAYS) * 100) };
+  }
+
+  /* ---------------- Hero ---------------- */
+  function renderHero() {
+    const hero = $('heroCard');
+    const st = pregnancyState();
+    const nameHtml = (settings && settings.name) ? `
+      <div class="profile-row">
+        ${settings.photo ? `<img class="avatar" src="${settings.photo}" alt="">` : `<div class="avatar">${initials(settings.name)}</div>`}
+        <div class="profile-name">مرحبًا، ${escapeHtml(settings.name)}</div>
+      </div>` : '';
+
+    if (!st) {
+      hero.innerHTML = `
+        <div class="hero-empty">
+          ${nameHtml}
+          <p>أدخلي تاريخ الولادة المتوقع أو تاريخ آخر دورة شهرية لبدء المتابعة</p>
+          <button class="btn-primary" id="heroSetup" type="button" style="max-width:220px;margin:0 auto;">إعداد الموعد</button>
+        </div>`;
+      $('heroSetup').addEventListener('click', openSettings);
+      return;
+    }
+
+    let countdownLabel, countdownNum, countdownSub;
+    if (st.remaining > 0) {
+      countdownNum = st.remaining; countdownLabel = 'يوم متبقٍ';
+      countdownSub = `≈ ${Math.floor(st.remaining / 7)} أسبوع و ${st.remaining % 7} يوم`;
+    } else if (st.remaining === 0) {
+      countdownNum = 'اليوم'; countdownLabel = 'موعد الولادة المتوقع'; countdownSub = '';
+    } else {
+      countdownNum = Math.abs(st.remaining); countdownLabel = 'يوم بعد الموعد المتوقع'; countdownSub = '';
+    }
+
+    hero.innerHTML = `
+      ${nameHtml}
+      <div class="hero-main">
+        <span class="hero-week">${st.weeks}</span>
+        <span class="hero-week-label">أسبوع و ${st.days} يوم</span>
+      </div>
+      <div class="hero-days">إجمالي ${st.clampedDays} يوم من الحمل</div>
+      <span class="trimester-tag">${st.trimester}</span>
+      <div class="progress-track"><div class="progress-fill" style="width:${st.pct}%"></div></div>
+      <div class="progress-caption"><span>بداية الحمل</span><span>${Math.round(st.pct)}٪</span><span>الأسبوع 40</span></div>
+      <div class="countdown-row">
+        <div class="stat-box"><div class="num">${countdownNum}</div><div class="lbl">${countdownLabel}</div></div>
+        <div class="stat-box"><div class="num" style="font-size:15px;">${fmtDate(st.due)}</div><div class="lbl">الموعد المتوقع ${countdownSub ? '· ' + countdownSub : ''}</div></div>
+      </div>`;
+    renderDevGuide(st);
+  }
+
+  function renderDevGuide(st) {
+    const card = $('devGuideCard');
+    if (!st) { card.style.display = 'none'; return; }
+    const wk = Math.min(40, Math.max(4, st.weeks));
+    const info = FETAL_DEV[wk];
+    if (!info) { card.style.display = 'none'; return; }
+    card.style.display = '';
+    $('devGuideBox').innerHTML = `
+      <div class="dev-guide">
+        <div class="txt">
+          <div class="wk">الأسبوع ${wk}</div>
+          <div>بحجم تقريبي: <strong>${info[0]}</strong></div>
+        </div>
+      </div>
+      <p class="card-sub" style="margin-top:10px;">مقارنة تقريبية شائعة للتوضيح فقط، وليست معلومة طبية دقيقة — للمتابعة الدقيقة استندي لتقييم طبيبتك.</p>`;
+  }
+
+  /* ---------------- Settings modal ---------------- */
+  let settingsMode = 'due';
+  let pendingPhoto = null, pendingLogo = null, pendingStamp = null;
+
+  function openSettings() {
+    settingsMode = 'due';
+    $('modeDue').classList.add('active'); $('modeLmp').classList.remove('active');
+    $('dateFieldLabel').textContent = 'تاريخ الولادة المتوقع';
+    $('dateField').value = settings && settings.dueDate ? settings.dueDate : '';
+    syncDateTrigger('dateField');
+    $('nameField').value = settings && settings.name ? settings.name : '';
+    $('doctorNameField').value = settings && settings.doctorName ? settings.doctorName : '';
+    $('clinicNameField').value = settings && settings.clinicName ? settings.clinicName : '';
+    $('familyCodeField').value = settings && settings.familyCode ? settings.familyCode : '';
+    $('adherenceThresholdField').value = (settings && settings.adherenceThreshold) || 70;
+    $('quietHoursEnabledField').checked = !!(settings && settings.quietHoursEnabled);
+    setTimeSelect('quietStart', 0, (settings && settings.quietStart) || '23:00');
+    setTimeSelect('quietEnd', 0, (settings && settings.quietEnd) || '07:00');
+    $('familySyncStatus').textContent = settings && settings.familyCode ? 'متصل برمز: ' + settings.familyCode : '';
+    pendingPhoto = settings && settings.photo ? settings.photo : null;
+    pendingLogo = settings && settings.logo ? settings.logo : null;
+    pendingStamp = settings && settings.stamp ? settings.stamp : null;
+    updateAvatarPreview();
+    $('logoPreview').src = pendingLogo || '';
+    $('logoPreview').style.visibility = pendingLogo ? 'visible' : 'hidden';
+    $('stampPreview').src = pendingStamp || '';
+    $('stampPreview').style.visibility = pendingStamp ? 'visible' : 'hidden';
+    refreshNotifyStatus();
+    refreshBackupReminder();    $('settingsOverlay').classList.add('open');
+  }
+  function closeSettings() { $('settingsOverlay').classList.remove('open'); }
+  function updateAvatarPreview() {
+    const el = $('settingsAvatarPreview');
+    const nm = $('nameField').value;
+    if (pendingPhoto) { el.innerHTML = `<img src="${pendingPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`; }
+    else { el.textContent = initials(nm); }
+  }
+
+  $('openSettings').addEventListener('click', openSettings);
+  $('cancelSettings').addEventListener('click', closeSettings);
+  $('settingsOverlay').addEventListener('click', (e) => { if (e.target === $('settingsOverlay')) closeSettings(); });
+  $('nameField').addEventListener('input', updateAvatarPreview);
+
+  $('modeDue').addEventListener('click', () => { settingsMode = 'due'; $('modeDue').classList.add('active'); $('modeLmp').classList.remove('active'); $('dateFieldLabel').textContent = 'تاريخ الولادة المتوقع'; });
+  $('modeLmp').addEventListener('click', () => { settingsMode = 'lmp'; $('modeLmp').classList.add('active'); $('modeDue').classList.remove('active'); $('dateFieldLabel').textContent = 'تاريخ أول يوم من آخر دورة شهرية'; });
+
+  $('photoInput').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) resizeImage(f, 240, (d) => { pendingPhoto = d; updateAvatarPreview(); }); });
+  $('logoInput').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) resizeImage(f, 200, (d) => { pendingLogo = d; $('logoPreview').src = d; $('logoPreview').style.visibility = 'visible'; }); });
+  $('stampInput').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) resizeImage(f, 200, (d) => { pendingStamp = d; $('stampPreview').src = d; $('stampPreview').style.visibility = 'visible'; }); });
+
+  $('enableNotify').addEventListener('click', () => {
+    if (!('Notification' in window)) { $('notifyStatus').textContent = 'هذا المتصفح لا يدعم إشعارات النظام — التذكيرات المرئية داخل الصفحة تبقى تعمل بلا هذا الإذن.'; return; }
+    Notification.requestPermission().then(refreshNotifyStatus);
+  });
+  function refreshNotifyStatus() {
+    const supported = 'Notification' in window;
+    const perm = supported ? Notification.permission : 'unsupported';
+    const label = perm === 'granted' ? 'التذكيرات مفعّلة في هذا المتصفح'
+      : perm === 'denied' ? 'تم رفض إذن الإشعارات من إعدادات المتصفح'
+      : 'التذكيرات تعمل فقط أثناء فتح الصفحة في المتصفح';
+    $('notifyStatus').textContent = label;
+  }
+
+  $('saveSettings').addEventListener('click', () => {
+    const val = $('dateField').value;
+    let dueDate = settings && settings.dueDate ? settings.dueDate : null;
+    if (val) {
+      if (settingsMode === 'due') { dueDate = val; }
+      else { const lmp = new Date(val); dueDate = new Date(lmp.getTime() + FULL_TERM_DAYS * DAY).toISOString().slice(0, 10); }
+    }
+    settings = {
+      dueDate,
+      name: $('nameField').value.trim(),
+      photo: pendingPhoto,
+      doctorName: $('doctorNameField').value.trim(),
+      clinicName: $('clinicNameField').value.trim(),
+      logo: pendingLogo,
+      stamp: pendingStamp,
+      familyCode: (settings && settings.familyCode) || null,
+      adherenceThreshold: Number($('adherenceThresholdField').value) || 70,
+      quietHoursEnabled: $('quietHoursEnabledField').checked,
+      quietStart: readTimeSelect('quietStart', 0) || '23:00',
+      quietEnd: readTimeSelect('quietEnd', 0) || '07:00'
+    };
+    const wrote = store.set('nabd_settings', settings);
+    const verify = store.get('nabd_settings', null);
+    const ok = wrote && verify && JSON.stringify(verify) === JSON.stringify(settings);
+    renderHero();
+    const btn = $('saveSettings');
+    const original = btn.textContent;
+    if (ok) {
+      btn.textContent = 'تم الحفظ ✓ — انتظري قليلًا قبل الإغلاق';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original; btn.disabled = false;
+        closeSettings();
+      }, 1800);
+    } else {
+      btn.textContent = 'تعذّر الحفظ — حاولي مرة أخرى';
+      setTimeout(() => { btn.textContent = original; }, 2200);
+    }
+  });
+
+  /* ---------------- Symptom chips + logs ---------------- */
+  function renderChips() {
+    const box = $('symptomChips');
+    box.innerHTML = SYMPTOM_LIST.map(s => `<button type="button" class="chip" data-s="${s}">${s}</button>`).join('');
+    box.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const s = chip.dataset.s;
+        if (selectedSymptoms.includes(s)) { selectedSymptoms = selectedSymptoms.filter(x => x !== s); chip.classList.remove('active'); }
+        else { selectedSymptoms.push(s); chip.classList.add('active'); }
+      });
+    });
+  }
+  const energyLabels = { 1: 'منخفض جدًا', 2: 'منخفض', 3: 'متوسط', 4: 'جيد', 5: 'مرتفع' };
+  $('energyRange').addEventListener('input', (e) => { $('energyVal').textContent = energyLabels[e.target.value]; });
+
+  function renderLogs() {
+    const box = $('logHistory');
+    if (!logs.length) { box.innerHTML = `<div class="empty-note">لا توجد تسجيلات بعد</div>`; return; }
+    const sorted = [...logs].sort((a, b) => b.createdAt - a.createdAt);
+    box.innerHTML = `<div class="section-label">آخر التسجيلات</div>` + sorted.map(l => `
+      <div class="log-item">
+        <button class="del-btn" data-id="${l.id}" title="حذف">حذف</button>
+        <div class="date">${fmtDate(l.date)}</div>
+        <span class="energy-badge">الطاقة: ${energyLabels[l.energy]}</span>
+        ${l.symptoms.length ? `<div class="tags">${l.symptoms.map(s => `<span class="tag">${s}</span>`).join('')}</div>` : ''}
+        ${l.note ? `<div class="note">${escapeHtml(l.note)}</div>` : ''}
+      </div>`).join('');
+    box.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      logs = logs.filter(l => l.id !== btn.dataset.id); store.set('nabd_logs', logs); renderLogs(); renderCharts();
+    }));
+  }
+
+  $('saveLog').addEventListener('click', () => {
+    logs.push({ id: uid(), date: todayStr(), energy: Number($('energyRange').value), symptoms: [...selectedSymptoms], note: $('noteInput').value.trim(), createdAt: Date.now() });
+    store.set('nabd_logs', logs);
+    selectedSymptoms = []; $('noteInput').value = ''; $('energyRange').value = 3; $('energyVal').textContent = 'متوسط';
+    renderChips(); renderLogs(); renderCharts();
+  });
+
+  /* ---------------- Charts ---------------- */
+  function renderCharts() {
+    const box = $('chartsBox');
+    if (!logs.length) { box.innerHTML = `<div class="empty-note">سجّلي بضعة أيام لتظهر الرسوم البيانية</div>`; return; }
+    const st = pregnancyState();
+    const refStart = st ? st.start : new Date(Math.min(...logs.map(l => new Date(l.date).getTime())));
+
+    const weekMap = {};
+    logs.forEach(l => {
+      const wk = Math.max(0, Math.floor((new Date(l.date) - refStart) / DAY / 7));
+      if (!weekMap[wk]) weekMap[wk] = [];
+      weekMap[wk].push(l.energy);
+    });
+    const weekKeys = Object.keys(weekMap).map(Number).sort((a, b) => a - b).slice(-10);
+    const points = weekKeys.map(w => {
+      const arr = weekMap[w];
+      return { w, avg: arr.reduce((a, b) => a + b, 0) / arr.length };
+    });
+
+    let lineSvg = '';
+    if (points.length >= 1) {
+      const W = 560, H = 130, padL = 30, padR = 10, padT = 14, padB = 24;
+      const innerW = W - padL - padR, innerH = H - padT - padB;
+      const xStep = points.length > 1 ? innerW / (points.length - 1) : 0;
+      const yFor = (v) => padT + innerH - ((v - 1) / 4) * innerH;
+      const coords = points.map((p, i) => [padL + i * xStep, yFor(p.avg)]);
+      const path = coords.map((c, i) => (i === 0 ? 'M' : 'L') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
+      const dots = coords.map((c, i) => `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="3.5" fill="var(--accent-rose)"></circle>`).join('');
+      const labels = points.map((p, i) => `<text x="${coords[i][0].toFixed(1)}" y="${H - 6}" font-size="10" fill="var(--text-secondary)" text-anchor="middle">أ${p.w}</text>`).join('');
+      lineSvg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="var(--border)"/>
+        <line x1="${padL}" y1="${H - padB}" x2="${W - padR}" y2="${H - padB}" stroke="var(--border)"/>
+        <path d="${path}" fill="none" stroke="var(--accent-rose)" stroke-width="2.2"/>
+        ${dots}${labels}
+      </svg>`;
+    }
+
+    const freq = {};
+    logs.forEach(l => l.symptoms.forEach(s => { freq[s] = (freq[s] || 0) + 1; }));
+    const freqSorted = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const maxCount = freqSorted.length ? freqSorted[0][1] : 1;
+    const barsHtml = freqSorted.length ? freqSorted.map(([s, c]) => `
+      <div class="bar-row">
+        <div class="bar-label">${s}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(c / maxCount) * 100}%"></div></div>
+        <div class="bar-count">${c}</div>
+      </div>`).join('') : `<div class="empty-note">لا توجد أعراض مسجّلة بعد</div>`;
+
+    box.innerHTML = `
+      <div class="chart-block">
+        <div class="chart-title">متوسط الطاقة حسب أسبوع الحمل</div>
+        ${lineSvg || '<div class="empty-note">أضيفي تاريخ الحمل لعرض الأسابيع</div>'}
+      </div>
+      <div class="chart-block">
+        <div class="chart-title">الأعراض الأكثر تكرارًا</div>
+        ${barsHtml}
+      </div>`;
+  }
+
+  /* ---------------- Appointments ---------------- */
+  function renderAppts() {
+    const box = $('apptList');
+    if (!appts.length) { box.innerHTML = `<div class="empty-note">لا توجد مواعيد مضافة</div>`; return; }
+    const now = todayStr();
+    const upcoming = appts.filter(a => a.date >= now).sort((a, b) => a.date.localeCompare(b.date));
+    const past = appts.filter(a => a.date < now).sort((a, b) => b.date.localeCompare(a.date));
+    let html = '';
+    if (upcoming.length) html += `<div class="section-label">القادمة</div>` + upcoming.map(a => apptRow(a, false)).join('');
+    if (past.length) html += `<div class="section-label">السابقة</div>` + past.map(a => apptRow(a, true)).join('');
+    box.innerHTML = html;
+    box.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      appts = appts.filter(a => a.id !== btn.dataset.id); store.set('nabd_appointments', appts); renderAppts();
+    }));
+    box.querySelectorAll('.attach-thumb').forEach(img => img.addEventListener('click', () => openLightbox(img.dataset.full)));
+    box.querySelectorAll('.attach-del').forEach(btn => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const a = appts.find(x => x.id === btn.dataset.id);
+      if (a) { a.attachment = null; store.set('nabd_appointments', appts); renderAppts(); }
+    }));
+  }
+  function apptRow(a, isPast) {
+    return `<div class="appt-item ${isPast ? 'past' : ''}">
+      <div class="appt-main">
+        <span class="appt-type">${a.type}</span>
+        <div class="appt-date">${fmtDate(a.date)}${a.time ? ' — ' + a.time : ''}</div>
+        ${a.location ? `<div class="appt-loc">${escapeHtml(a.location)}</div>` : ''}
+        ${a.note ? `<div class="appt-note">${escapeHtml(a.note)}</div>` : ''}
+        ${a.attachment ? `<div class="attach-row">
+          <img class="attach-thumb" src="${a.attachment}" data-full="${a.attachment}" alt="مرفق">
+          <button class="del-btn attach-del" data-id="${a.id}" style="position:static;">حذف المرفق</button>
+        </div>` : ''}
+      </div>
+      <button class="del-btn" data-id="${a.id}" title="حذف" style="position:static;">حذف</button>
+    </div>`;
+  }
+  function openLightbox(src) { $('lightboxImg').src = src; $('lightbox').classList.add('open'); }
+  $('lightbox').addEventListener('click', () => { $('lightbox').classList.remove('open'); $('lightboxImg').src = ''; });
+
+  let pendingApptAttachment = null;
+  $('apptAttachInput').addEventListener('change', (e) => {
+    const f = e.target.files[0];
+    if (f) resizeImage(f, 900, (d) => { pendingApptAttachment = d; });
+  });
+  $('addAppt').addEventListener('click', () => {
+    const date = $('apptDate').value;
+    if (!date) { openDatePicker('apptDate'); return; }
+    appts.push({ id: uid(), type: $('apptType').value, date, time: readTimeSelect('appt', 0), location: $('apptLoc').value.trim(), note: $('apptNote').value.trim(), attachment: pendingApptAttachment });
+    store.set('nabd_appointments', appts);
+    $('apptDate').value = ''; $('apptLoc').value = ''; $('apptNote').value = '';
+    setTimeSelect('appt', 0, '');
+    syncDateTrigger('apptDate');
+    $('apptAttachInput').value = ''; pendingApptAttachment = null;
+    renderAppts();
+  });
+
+  function checkApptReminders() {
+    const now = new Date();
+    const today = todayStr();
+    const tomorrow = new Date(now.getTime() + DAY).toISOString().slice(0, 10);
+    const canNotify = ('Notification' in window) && Notification.permission === 'granted' && !isQuietNow();
+    let changed = false;
+    appts.forEach(a => {
+      if (a.date === today && a.time) {
+        const [hh, mm] = a.time.split(':').map(Number);
+        const apptTime = new Date(now); apptTime.setHours(hh, mm, 0, 0);
+        const diffMin = (apptTime - now) / 60000;
+        const key = a.id + '-soon';
+        if (diffMin > 0 && diffMin <= 60 && !notified.includes(key)) {
+          if (canNotify) new Notification('تذكير بموعد اليوم', { body: `${a.type} الساعة ${a.time}${a.location ? ' — ' + a.location : ''}` });
+          logActivity({ type: 'appt', status: 'تم الاطلاع', category: apptCategory(a.type), label: a.type + (a.location ? ' — ' + a.location : ''), date: a.date, time: a.time });
+          notified.push(key); changed = true;
+        }
+      }
+      if (a.date === tomorrow) {
+        const key = a.id + '-dayBefore';
+        if (!notified.includes(key)) {
+          if (canNotify) new Notification('موعد غدًا', { body: `${a.type} بتاريخ ${fmtDate(a.date)}${a.time ? ' الساعة ' + a.time : ''}` });
+          logActivity({ type: 'appt', status: 'تم الاطلاع', category: apptCategory(a.type), label: a.type + (a.location ? ' — ' + a.location : ''), date: a.date, time: a.time || '' });
+          notified.push(key); changed = true;
+        }
+      }
+    });
+    if (changed) { if (notified.length > 300) notified = notified.slice(-200); store.set('nabd_notified', notified); }
+  }
+
+  /* ---------------- Dose reminders (visual + audio) ---------------- */
+  let audioCtx = null;
+  function unlockAudio() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      else if (audioCtx.state === 'suspended') audioCtx.resume();
+    } catch (e) {}
+  }
+  function beepTone(freq, delay) {
+    if (!audioCtx) return;
+    setTimeout(() => {
+      try {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = 'sine'; o.frequency.value = freq; g.gain.value = 0.16;
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(); setTimeout(() => o.stop(), 220);
+      } catch (e) {}
+    }, delay);
+  }
+  function playDoseBeep() { beepTone(880, 0); beepTone(1046, 260); }
+
+  function showDoseToast(med, slot, label, time) {
+    $('doseToastText').textContent = `حان وقت جرعة: ${label}`;
+    $('doseToast').dataset.med = med.id; $('doseToast').dataset.slot = slot;
+    $('doseToast').dataset.label = label; $('doseToast').dataset.time = time || '';
+    $('doseToast').classList.add('open');
+  }
+  $('doseToastTake').addEventListener('click', () => {
+    const medId = $('doseToast').dataset.med, slot = Number($('doseToast').dataset.slot);
+    const today = todayStr();
+    if (!doseTaken(medId, today, slot)) {
+      doseLogs.push({ id: uid(), medId, date: today, slot, status: 'taken', takenAt: Date.now() });
+      store.set('nabd_dose_logs', doseLogs);
+      renderDoses();
+    }
+    $('doseToast').classList.remove('open');
+  });
+  $('doseToastDismiss').addEventListener('click', () => {
+    const t = $('doseToast');
+    scheduleSnooze(t.dataset.med, Number(t.dataset.slot), todayStr(), t.dataset.time || '', t.dataset.label || '', 30);
+    t.classList.remove('open');
+  });
+
+  function triggerDoseAlert(med, slot, time) {
+    const label = med.name + (med.freq === 'multiple' ? ' — الجرعة ' + (slot + 1) : '');
+    const quiet = isQuietNow();
+    if (!quiet) {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('حان وقت الجرعة', { body: `${label}${time ? ' — الساعة ' + time : ''}` });
+      }
+      playDoseBeep();
+      showDoseToast(med, slot, label, time);
+    }
+    logActivity({ type: 'dose', status: quiet ? 'تم الاطلاع (صامت)' : 'تم الاطلاع', category: 'جرعات', label, date: todayStr(), time: time || '' });
+  }
+  function scheduleSnooze(medId, slot, date, time, label, minutes) {
+    snoozedAlerts.push({ id: uid(), medId, slot, date, time, label, dueAt: Date.now() + minutes * 60000 });
+    store.set('nabd_snoozed', snoozedAlerts);
+    logActivity({ type: 'dose', status: 'مؤجلة', category: 'جرعات', label, date, time });
+  }
+  function checkSnoozedAlerts() {
+    const now = Date.now();
+    let changed = false;
+    snoozedAlerts = snoozedAlerts.filter(s => {
+      if (s.dueAt > now) return true;
+      changed = true;
+      if (!doseTaken(s.medId, s.date, s.slot)) {
+        const med = meds.find(m => m.id === s.medId);
+        if (med) triggerDoseAlert(med, s.slot, s.time);
+      }
+      return false;
+    });
+    if (changed) store.set('nabd_snoozed', snoozedAlerts);
+  }
+
+  function checkDoseReminders() {
+    const now = new Date();
+    const today = todayStr();
+    let changed = false;
+    meds.forEach(m => {
+      if (!m.times) return;
+      slotsForMedOnDate(m, today).forEach(slot => {
+        const t = m.times[slot];
+        if (!t || doseTaken(m.id, today, slot)) return;
+        const [hh, mm] = t.split(':').map(Number);
+        const sched = new Date(now); sched.setHours(hh, mm, 0, 0);
+        const diffMin = (now - sched) / 60000;
+        const key = m.id + '-' + today + '-' + slot + '-doseAlert';
+        if (diffMin >= 0 && diffMin <= 2 && !notified.includes(key)) {
+          triggerDoseAlert(m, slot, t);
+          notified.push(key); changed = true;
+        }
+      });
+    });
+    if (changed) { if (notified.length > 300) notified = notified.slice(-200); store.set('nabd_notified', notified); }
+  }
+
+  $('enableDoseAlert').addEventListener('click', () => {
+    unlockAudio();
+    playDoseBeep();
+    const finish = () => {
+      $('doseAlertStatus').textContent = ('Notification' in window && Notification.permission === 'granted')
+        ? 'تنبيه الجرعات مفعّل (مرئي وصوتي) طالما الصفحة مفتوحة.'
+        : 'تم تفعيل الصوت. التنبيه المرئي (الإشعار) يحتاج إذنًا من المتصفح.';
+    };
+    if ('Notification' in window && Notification.permission !== 'granted') Notification.requestPermission().then(finish);
+    else finish();
+  });
+
+  $('generateFamilyCode').addEventListener('click', async () => {
+    if (settings && settings.familyCode) {
+      const ok = confirm('لديك رمز عائلة متصل حاليًا (' + settings.familyCode + '). توليد رمز جديد سينشئ مساحة مشاركة منفصلة تمامًا، ولن يعود جهازك متصلًا بالرمز القديم. متابعة؟');
+      if (!ok) return;
+    }
+    const code = randomFamilyCode();
+    $('familyCodeField').value = code;
+    if (!settings) settings = {};
+    settings.familyCode = code;
+    store.set('nabd_settings', settings);
+    $('familySyncStatus').textContent = 'تم توليد الرمز: ' + code + ' — شاركيه على الجهاز الآخر';
+    await pushToCloud();
+  });
+  $('connectFamilyCode').addEventListener('click', async () => {
+    const code = $('familyCodeField').value.trim().toUpperCase();
+    if (!code) { $('familyCodeField').focus(); return; }
+    if (settings && settings.familyCode && settings.familyCode !== code) {
+      const ok = confirm('سيستبدل هذا اتصالك الحالي بالرمز (' + settings.familyCode + ') بالرمز الجديد (' + code + '). متابعة؟');
+      if (!ok) return;
+    }
+    if (!settings) settings = {};
+    settings.familyCode = code;
+    localStorage.setItem('nabd_settings', JSON.stringify(settings));
+    const found = await pullFromCloud();
+    if (!found) { await pushToCloud(); }
+    rerenderEverything();
+  });
+  $('forcePushFamily').addEventListener('click', async () => {
+    if (!settings || !settings.familyCode) { setSyncStatus('أدخلي رمز العائلة أولًا'); return; }
+    await pushToCloud();
+    setSyncStatus('تم رفع نسختك الحالية كنسخة معتمدة للمشتركين ✓');
+  });
+
+  /* ---------------- Quick daily dose shortcut ---------------- */
+  let quickDoseStatusTimer = null;
+  function showHeaderStatus(msg) {
+    $('quickDoseStatus').textContent = msg;
+    clearTimeout(quickDoseStatusTimer);
+    quickDoseStatusTimer = setTimeout(() => { $('quickDoseStatus').textContent = ''; }, 6000);
+  }
+  $('quickDoseBtn').addEventListener('click', () => {
+    unlockAudio();
+    if (!meds.length) { showHeaderStatus('لا توجد أدوية مضافة بعد.'); return; }
+    const today = todayStr();
+    let count = 0, already = 0, skippedMultiple = 0;
+    meds.forEach(m => {
+      if (m.freq === 'multiple') { skippedMultiple++; return; }
+      const slots = slotsForMedOnDate(m, today);
+      if (!slots.length) return;
+      const slot = slots[0];
+      if (doseTaken(m.id, today, slot)) { already++; return; }
+      doseLogs.push({ id: uid(), medId: m.id, date: today, slot, status: 'taken', takenAt: Date.now() });
+      count++;
+    });
+    if (count) store.set('nabd_dose_logs', doseLogs);
+    if (count || already) renderDoses();
+    let msg;
+    if (count && already) msg = `تم تسجيل ${count} جرعة، و${already} كانت مسجّلة مسبقًا.`;
+    else if (count) msg = `تم تسجيل ${count} جرعة لهذا اليوم.`;
+    else if (already) msg = 'الجرعات اليومية/الأسبوعية مسجّلة بالفعل لهذا اليوم.';
+    else msg = 'لا توجد جرعة يومية أو أسبوعية مجدولة اليوم.';
+    if (skippedMultiple) msg += ' الأدوية متعددة المرات تُسجَّل من بطاقة الأدوية.';
+    showHeaderStatus(msg);
+  });
+
+  /* ---------------- Activity log ---------------- */
+  let logFilterCat = 'all';
+  function getUnifiedLogEntries() {
+    const takenEntries = doseLogs.map(dl => {
+      const med = meds.find(m => m.id === dl.medId);
+      return { ts: dl.takenAt, date: dl.date, time: '', category: 'جرعات', label: (med ? med.name : 'دواء محذوف') + (med && med.freq === 'multiple' ? ' — الجرعة ' + (dl.slot + 1) : ''), status: 'مكتملة' };
+    });
+    return [...takenEntries, ...activityLog].sort((a, b) => b.ts - a.ts);
+  }
+  function computeAdherenceStats(daysBack, offsetDays) {
+    const dailyStats = [];
+    for (let i = daysBack - 1; i >= 0; i--) {
+      const d = new Date(Date.now() - (i + offsetDays) * DAY);
+      const dateStr = d.toISOString().slice(0, 10);
+      let scheduled = 0, taken = 0;
+      meds.forEach(m => {
+        slotsForMedOnDate(m, dateStr).forEach(slot => {
+          scheduled++;
+          if (doseTaken(m.id, dateStr, slot)) taken++;
+        });
+      });
+      dailyStats.push({ date: dateStr, taken, scheduled, missed: scheduled - taken, pct: scheduled ? Math.round(taken / scheduled * 100) : null });
+    }
+    const totalTaken = dailyStats.reduce((a, d) => a + d.taken, 0);
+    const totalScheduled = dailyStats.reduce((a, d) => a + d.scheduled, 0);
+    const totalMissed = dailyStats.reduce((a, d) => a + d.missed, 0);
+    return { dailyStats, totalTaken, totalScheduled, totalMissed, overallPct: totalScheduled ? Math.round(totalTaken / totalScheduled * 100) : null };
+  }
+  function renderAdherence() {
+    const box = $('adherenceBox');
+    const current = computeAdherenceStats(7, 0);
+    const previous = computeAdherenceStats(7, 7);
+    if (!current.totalScheduled && !previous.totalScheduled) { box.innerHTML = ''; return; }
+    const validDays = current.dailyStats.filter(d => d.scheduled > 0);
+    let best = null, worst = null;
+    validDays.forEach(d => { if (!best || d.pct > best.pct) best = d; if (!worst || d.pct < worst.pct) worst = d; });
+    const threshold = (settings && settings.adherenceThreshold) || 70;
+    const alertHtml = (current.overallPct !== null && current.overallPct < threshold)
+      ? `<div class="adh-alert">انتبهي: الالتزام هذا الأسبوع ${current.overallPct}٪، وهو أقل من الحد المحدَّد (${threshold}٪).</div>` : '';
+    const barsHtml = current.dailyStats.map(d => {
+      const h = d.scheduled ? Math.max(6, Math.round(d.pct)) : 4;
+      return `<div class="adh-bar-col">
+        <div class="adh-bar-pct">${d.scheduled ? d.pct + '٪' : '—'}</div>
+        <div class="adh-bar ${d.scheduled ? '' : 'empty'}" style="height:${h}%;"></div>
+        <div class="adh-day-label">${WEEKDAY_NAMES[new Date(d.date).getDay()].slice(0, 3)}</div>
+      </div>`;
+    }).join('');
+    const diff = (current.overallPct !== null && previous.overallPct !== null) ? current.overallPct - previous.overallPct : null;
+    const diffLabel = diff === null ? '' : diff > 0 ? `أفضل بـ ${diff}٪` : diff < 0 ? `أقل بـ ${Math.abs(diff)}٪` : 'بلا تغيير';
+    box.innerHTML = `
+      ${alertHtml}
+      <div class="adh-overall">
+        <div class="box"><div class="n">${current.overallPct !== null ? current.overallPct + '٪' : '—'}</div><div class="l">الالتزام هذا الأسبوع</div></div>
+        <div class="box"><div class="n">${current.totalTaken}</div><div class="l">جرعات مكتملة</div></div>
+        <div class="box"><div class="n">${current.totalMissed}</div><div class="l">جرعات فائتة</div></div>
+      </div>
+      <div class="adh-chart">${barsHtml}</div>
+      <div class="adh-compare"><span>مقارنة بالأسبوع السابق (${previous.overallPct !== null ? previous.overallPct + '٪' : '—'})</span><span>${diffLabel}</span></div>
+      ${best && worst ? `<div class="adh-bestworst">
+        <div class="box">أفضل يوم: ${WEEKDAY_NAMES[new Date(best.date).getDay()]} (${best.pct}٪)</div>
+        <div class="box">أضعف يوم: ${WEEKDAY_NAMES[new Date(worst.date).getDay()]} (${worst.pct}٪)</div>
+      </div>` : ''}`;
+  }
+  function renderActivityLog() {
+    renderAdherence();
+    const search = $('logSearch').value.trim().toLowerCase();
+    const fromV = $('logFromDate').value, toV = $('logToDate').value;
+    let entries = getUnifiedLogEntries();
+    if (logFilterCat !== 'all') entries = entries.filter(e => e.category === logFilterCat);
+    if (search) entries = entries.filter(e => e.label.toLowerCase().includes(search));
+    if (fromV) entries = entries.filter(e => e.date >= fromV);
+    if (toV) entries = entries.filter(e => e.date <= toV);
+
+    const completed = entries.filter(e => e.status === 'مكتملة').length;
+    const postponed = entries.filter(e => e.status === 'مؤجلة').length;
+    $('logStats').innerHTML = `
+      <div class="log-stat"><div class="n">${completed}</div><div class="l">جرعات مكتملة</div></div>
+      <div class="log-stat"><div class="n">${postponed}</div><div class="l">تنبيهات مؤجلة</div></div>
+      <div class="log-stat"><div class="n">${entries.length}</div><div class="l">إجمالي السجلات</div></div>`;
+
+    const catClass = c => c === 'جرعات' ? 'dose' : c === 'فحوصات' ? 'check' : 'appt';
+    $('logList').innerHTML = entries.length ? entries.map(e => `
+      <div class="log-row">
+        <div class="log-row-top">
+          <span class="cat ${catClass(e.category)}">${e.category}</span>
+          <span class="status ${e.status === 'مؤجلة' ? 'postponed' : ''}">${e.status}</span>
+        </div>
+        <div class="label">${escapeHtml(e.label)}</div>
+        <div class="when">${fmtDate(e.date)}${e.time ? ' — الساعة ' + e.time : ''}</div>
+      </div>`).join('') : `<div class="empty-note">لا توجد سجلات مطابقة</div>`;
+    return entries;
+  }
+  $('logTypeFilter').querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $('logTypeFilter').querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      logFilterCat = btn.dataset.cat;
+      renderActivityLog();
+    });
+  });
+  $('logSearch').addEventListener('input', renderActivityLog);
+  $('logThisWeek').addEventListener('click', () => {
+    const now = new Date();
+    const day = now.getDay();
+    const start = new Date(now.getTime() - day * DAY);
+    const end = new Date(start.getTime() + 6 * DAY);
+    $('logFromDate').value = start.toISOString().slice(0, 10);
+    $('logToDate').value = end.toISOString().slice(0, 10);
+    syncDateTrigger('logFromDate'); syncDateTrigger('logToDate');
+    renderActivityLog();
+  });
+  $('logClearDates').addEventListener('click', () => {
+    $('logFromDate').value = ''; $('logToDate').value = '';
+    syncDateTrigger('logFromDate'); syncDateTrigger('logToDate');
+    renderActivityLog();
+  });
+  function buildActivityLogReportHtml(entries) {
+    const now = todayStr();
+    const fromV = $('logFromDate').value, toV = $('logToDate').value;
+    const rangeLabel = fromV || toV ? `${fromV ? fmtDate(fromV) : '...'} — ${toV ? fmtDate(toV) : '...'}` : 'كل الفترات';
+    return `
+      <div class="report-sheet" id="logSheetInner">
+        <div class="report-band">
+          <div class="report-clinic"><div><div class="cname">سجل الجرعات والتنبيهات</div><div class="dname">${rangeLabel}</div></div></div>
+          <div class="report-title">أم سارة</div>
+        </div>
+        <div class="report-body">
+          <div class="report-stats-strip">
+            <div class="report-stat"><div class="n">${entries.filter(e => e.status === 'مكتملة').length}</div><div class="l">جرعات مكتملة</div></div>
+            <div class="report-stat"><div class="n">${entries.filter(e => e.status === 'مؤجلة').length}</div><div class="l">تنبيهات مؤجلة</div></div>
+            <div class="report-stat"><div class="n">${entries.length}</div><div class="l">الإجمالي</div></div>
+          </div>
+          <div class="report-h2">السجل (تاريخ التصدير: ${fmtDate(now)})</div>
+          ${entries.length ? `<div class="report-table-wrap"><table class="report-table"><thead><tr><th>النوع</th><th>البيان</th><th>التاريخ</th><th>الوقت</th><th>الحالة</th></tr></thead><tbody>
+            ${entries.map(e => `<tr><td>${e.category}</td><td>${escapeHtml(e.label)}</td><td>${fmtDate(e.date)}</td><td>${e.time || '—'}</td><td>${e.status}</td></tr>`).join('')}
+          </tbody></table></div>` : `<div class="report-empty">لا توجد سجلات مطابقة</div>`}
+          <div class="report-foot"><div class="ts">تم إنشاء هذا السجل عبر تطبيق أم سارة بتاريخ ${fmtDate(now)}</div></div>
+        </div>
+      </div>`;
+  }
+  $('exportLogPdf').addEventListener('click', async () => {
+    const btn = $('exportLogPdf');
+    btn.disabled = true; btn.textContent = 'جارٍ التجهيز...';
+    try {
+      const entries = renderActivityLog();
+      const html = buildActivityLogReportHtml(entries);
+      const blob = await generatePdfBlob(html, 'logSheetInner');
+      const filename = 'سجل-الجرعات-' + todayStr() + '.pdf';
+      await saveFile(filename, blob);
+    } catch (e) {
+      alert('تعذّر إنشاء ملف PDF. حاولي مرة أخرى.');
+    }
+    btn.disabled = false; btn.textContent = 'تصدير النتائج إلى PDF';
+  });
+
+  document.querySelectorAll('.quick-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const overlayId = btn.dataset.modal;
+      const overlay = document.getElementById(overlayId);
+      if (!overlay) return;
+      if (overlayId === 'chartsOverlay') renderCharts();
+      if (overlayId === 'kicksOverlay') renderKickHistory();
+      if (overlayId === 'contactsOverlay') renderContacts();
+      if (overlayId === 'checklistOverlay') renderChecklist();
+      if (overlayId === 'activityLogOverlay') renderActivityLog();
+      overlay.classList.add('open');
+    });
+  });
+  ['chartsOverlay', 'kicksOverlay', 'contactsOverlay', 'checklistOverlay', 'activityLogOverlay'].forEach(id => {
+    const overlay = document.getElementById(id);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+  });
+  $('closeChartsModal').addEventListener('click', () => $('chartsOverlay').classList.remove('open'));
+  $('closeKicksModal').addEventListener('click', () => $('kicksOverlay').classList.remove('open'));
+  $('closeContactsModal').addEventListener('click', () => $('contactsOverlay').classList.remove('open'));
+  $('closeChecklistModal').addEventListener('click', () => $('checklistOverlay').classList.remove('open'));
+  $('closeActivityLogModal').addEventListener('click', () => $('activityLogOverlay').classList.remove('open'));
+
+  /* ---------------- Kick counter ---------------- */
+  function fmtSeconds(sec) { const m = Math.floor(sec / 60), s = sec % 60; return `${m}:${String(s).padStart(2, '0')}`; }
+
+  function renderKickHistory() {
+    const box = $('kickHistory');
+    if (!kickSessions.length) { box.innerHTML = `<div class="empty-note">لا توجد جلسات محفوظة</div>`; return; }
+    const sorted = [...kickSessions].sort((a, b) => b.createdAt - a.createdAt).slice(0, 10);
+    box.innerHTML = sorted.map(k => `
+      <div class="kick-history-item">
+        <div>${k.count} ركلة<div class="sub">${fmtDate(k.date)}</div></div>
+        <div class="sub">${fmtSeconds(k.durationSec)}</div>
+        <button class="del-btn" data-id="${k.id}" style="position:static;">حذف</button>
+      </div>`).join('');
+    box.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      kickSessions = kickSessions.filter(k => k.id !== btn.dataset.id); store.set('nabd_kicks', kickSessions); renderKickHistory();
+    }));
+  }
+
+  function updateKickTimerLabel() {
+    if (!kickRunning) return;
+    const sec = Math.floor((Date.now() - kickStartedAt) / 1000);
+    $('kickTimer').textContent = 'الوقت: ' + fmtSeconds(sec);
+  }
+
+  $('kickTapBtn').addEventListener('click', () => {
+    if (!kickRunning) return;
+    kickTapTimes.push(Date.now());
+    $('kickCount').textContent = kickTapTimes.length;
+  });
+  $('kickStartStop').addEventListener('click', () => {
+    if (!kickRunning) {
+      kickRunning = true; kickStartedAt = Date.now(); kickTapTimes = [];
+      $('kickCount').textContent = '0';
+      $('kickStartStop').textContent = 'إيقاف الجلسة';
+      $('kickSave').disabled = true;
+      kickTimerHandle = setInterval(updateKickTimerLabel, 1000);
+    } else {
+      kickRunning = false;
+      clearInterval(kickTimerHandle);
+      $('kickStartStop').textContent = 'بدء الجلسة';
+      $('kickSave').disabled = kickTapTimes.length === 0;
+      const sec = Math.floor((Date.now() - kickStartedAt) / 1000);
+      $('kickTimer').textContent = 'انتهت — ' + fmtSeconds(sec);
+    }
+  });
+  $('kickSave').addEventListener('click', () => {
+    if (!kickTapTimes.length) return;
+    const durationSec = Math.floor((Date.now() - kickStartedAt) / 1000);
+    kickSessions.push({ id: uid(), date: todayStr(), count: kickTapTimes.length, durationSec, createdAt: Date.now() });
+    store.set('nabd_kicks', kickSessions);
+    $('kickCount').textContent = '0'; $('kickTimer').textContent = 'لم تبدأ الجلسة'; $('kickSave').disabled = true;
+    kickTapTimes = [];
+    renderKickHistory();
+  });
+
+  /* ---------------- Weight tracking ---------------- */
+  function renderWeight() {
+    const list = $('weightList');
+    const sorted = [...weightEntries].sort((a, b) => b.date.localeCompare(a.date));
+    list.innerHTML = sorted.length ? sorted.map(w => `
+      <div class="weight-row-item">
+        <div><span class="w">${w.kg} كجم</span><div class="d">${fmtDate(w.date)}</div></div>
+        <button class="del-btn" data-id="${w.id}" style="position:static;">حذف</button>
+      </div>`).join('') : `<div class="empty-note">لا توجد قياسات بعد</div>`;
+    list.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      weightEntries = weightEntries.filter(w => w.id !== btn.dataset.id); store.set('nabd_weight', weightEntries); renderWeight();
+    }));
+
+    const chartBox = $('weightChartBox');
+    const asc = [...weightEntries].sort((a, b) => a.date.localeCompare(b.date));
+    if (asc.length < 2) { chartBox.innerHTML = ''; return; }
+    const vals = asc.map(w => w.kg);
+    const min = Math.min(...vals), max = Math.max(...vals);
+    const range = max - min || 1;
+    const W = 560, H = 110, padL = 34, padR = 10, padT = 12, padB = 20;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const xStep = innerW / (asc.length - 1);
+    const yFor = (v) => padT + innerH - ((v - min) / range) * innerH;
+    const coords = asc.map((w, i) => [padL + i * xStep, yFor(w.kg)]);
+    const path = coords.map((c, i) => (i === 0 ? 'M' : 'L') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
+    const dots = coords.map(c => `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="3.2" fill="var(--accent-gold)"></circle>`).join('');
+    chartBox.innerHTML = `<div class="chart-title">تطوّر الوزن</div>
+      <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="var(--border)"/>
+        <line x1="${padL}" y1="${H - padB}" x2="${W - padR}" y2="${H - padB}" stroke="var(--border)"/>
+        <path d="${path}" fill="none" stroke="var(--accent-gold)" stroke-width="2.2"/>
+        ${dots}
+        <text x="${padL - 4}" y="${padT + 4}" font-size="10" fill="var(--text-secondary)" text-anchor="end">${max}</text>
+        <text x="${padL - 4}" y="${H - padB}" font-size="10" fill="var(--text-secondary)" text-anchor="end">${min}</text>
+      </svg>`;
+  }
+  $('weightDate').value = todayStr();
+  syncDateTrigger('weightDate');
+  $('addWeight').addEventListener('click', () => {
+    const kg = Number($('weightVal').value);
+    if (!kg) { $('weightVal').focus(); return; }
+    const date = $('weightDate').value || todayStr();
+    weightEntries.push({ id: uid(), kg, date });
+    store.set('nabd_weight', weightEntries);
+    $('weightVal').value = '';
+    renderWeight(); renderCharts();
+  });
+
+  /* ---------------- Contacts ---------------- */
+  function renderContacts() {
+    const box = $('contactList');
+    if (!contacts.length) { box.innerHTML = `<div class="empty-note">لا توجد جهات اتصال مضافة</div>`; return; }
+    box.innerHTML = contacts.map(c => `
+      <div class="contact-item">
+        <div><div class="cn">${escapeHtml(c.name)}</div>${c.role ? `<div class="cr">${escapeHtml(c.role)}</div>` : ''}</div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          ${c.phone ? `<a class="contact-call" href="tel:${c.phone.replace(/\s+/g, '')}">اتصال</a>` : ''}
+          <button class="del-btn" data-id="${c.id}" style="position:static;">حذف</button>
+        </div>
+      </div>`).join('');
+    box.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      contacts = contacts.filter(c => c.id !== btn.dataset.id); store.set('nabd_contacts', contacts); renderContacts();
+    }));
+  }
+  $('addContact').addEventListener('click', () => {
+    const name = $('contactName').value.trim();
+    if (!name) { $('contactName').focus(); return; }
+    contacts.push({ id: uid(), name, role: $('contactRole').value.trim(), phone: $('contactPhone').value.trim() });
+    store.set('nabd_contacts', contacts);
+    $('contactName').value = ''; $('contactRole').value = ''; $('contactPhone').value = '';
+    renderContacts();
+  });
+
+  /* ---------------- Hospital bag checklist ---------------- */
+  function renderChecklist() {
+    const box = $('checklistBox');
+    const done = checklist.filter(i => i.done).length;
+    $('checklistProgress').textContent = checklist.length ? `${done} من ${checklist.length} مكتمل` : '';
+    box.innerHTML = checklist.map(i => `
+      <div class="checklist-item ${i.done ? 'done' : ''}">
+        <input type="checkbox" data-id="${i.id}" ${i.done ? 'checked' : ''}>
+        <span>${escapeHtml(i.text)}</span>
+        <button class="del-btn" data-id="${i.id}" style="position:static;">حذف</button>
+      </div>`).join('');
+    box.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.addEventListener('change', () => {
+      const item = checklist.find(i => i.id === cb.dataset.id);
+      if (item) { item.done = cb.checked; store.set('nabd_checklist', checklist); renderChecklist(); }
+    }));
+    box.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+      checklist = checklist.filter(i => i.id !== btn.dataset.id); store.set('nabd_checklist', checklist); renderChecklist();
+    }));
+  }
+  $('addChecklistItem').addEventListener('click', () => {
+    const text = $('checklistNew').value.trim();
+    if (!text) { $('checklistNew').focus(); return; }
+    checklist.push({ id: uid(), text, done: false });
+    store.set('nabd_checklist', checklist);
+    $('checklistNew').value = '';
+    renderChecklist();
+  });
+
+  /* ---------------- Calendar reminder (.ics) for dose times ---------------- */
+  function escapeICS(s) { return (s || '').replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n'); }
+  function toICSUTC(d) {
+    const utc = new Date(d.getTime() - 3 * 60 * 60 * 1000); // Saudi Arabia is UTC+3, no DST
+    return utc.getUTCFullYear() + pad2(utc.getUTCMonth() + 1) + pad2(utc.getUTCDate()) + 'T' + pad2(utc.getUTCHours()) + pad2(utc.getUTCMinutes()) + '00Z';
+  }
+  function buildDoseICS(med, slot, time) {
+    const [hh, mm] = time.split(':').map(Number);
+    let start = new Date(); start.setHours(hh, mm, 0, 0);
+    if (start < new Date()) start = new Date(start.getTime() + DAY);
+    let rrule = 'RRULE:FREQ=DAILY';
+    if (med.freq === 'weekly') { const days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']; rrule = 'RRULE:FREQ=WEEKLY;BYDAY=' + days[med.weekDay]; }
+    const summary = 'جرعة ' + med.name + (med.freq === 'multiple' ? ' - الجرعة ' + (slot + 1) : '');
+    const lines = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//أم سارة//Pregnancy Tracker//AR', 'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      'UID:' + uid() + '@omsarah-app',
+      'DTSTAMP:' + toICSUTC(new Date()),
+      'DTSTART:' + toICSUTC(start),
+      'DURATION:PT5M',
+      rrule,
+      'SUMMARY:' + escapeICS(summary),
+      med.dose ? 'DESCRIPTION:' + escapeICS(med.dose) : '',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + escapeICS(summary), 'TRIGGER:PT0M', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'
+    ];
+    return lines.filter(Boolean).join('\r\n');
+  }
+
+  /* ---------------- Backup export/import ---------------- */
+  async function saveFile(filename, blob) {
+    let handled = false;
+    try { const downloads = await claude.use('downloads'); if (downloads) { await downloads.save({ filename, data: blob }); handled = true; } } catch (e) {}
+    if (!handled) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+  }
+  function refreshBackupReminder() {
+    const el = document.getElementById('backupReminderStatus');
+    if (!el) return;
+    const last = Number(localStorage.getItem('nabd_last_backup_at') || 0);
+    const hasData = (settings && (settings.dueDate || settings.name)) || logs.length || appts.length || meds.length;
+    if (!hasData) { el.textContent = ''; return; }
+    if (!last) { el.textContent = 'لم تُؤخذ أي نسخة احتياطية بعد — يُنصح بأخذ واحدة الآن.'; return; }
+    const daysSince = Math.floor((Date.now() - last) / DAY);
+    el.textContent = daysSince >= 4
+      ? `مرّ ${daysSince} يومًا منذ آخر نسخة احتياطية — حان وقت أخذ نسخة جديدة.`
+      : `آخر نسخة احتياطية: قبل ${daysSince} يوم${daysSince === 1 ? '' : 'ًا'}.`;
+  }
+  $('exportBackup').addEventListener('click', async () => {
+    const payload = { version: 1, exportedAt: Date.now(), settings, logs, appts, meds, doseLogs, weightEntries, kickSessions, contacts, checklist };
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    await saveFile('نسخة-احتياطية-' + todayStr() + '.json', blob);
+    localStorage.setItem('nabd_last_backup_at', String(Date.now()));
+    refreshBackupReminder();
+  });
+  $('importBackupInput').addEventListener('change', (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      let data;
+      try { data = JSON.parse(ev.target.result); } catch (err) { alert('ملف النسخة الاحتياطية غير صالح.'); return; }
+      if (!confirm('سيتم استبدال جميع البيانات الحالية بمحتوى هذه النسخة. هل تريدين المتابعة؟')) return;
+      settings = data.settings || null; logs = data.logs || []; appts = data.appts || []; meds = data.meds || [];
+      doseLogs = data.doseLogs || []; weightEntries = data.weightEntries || []; kickSessions = data.kickSessions || [];
+      contacts = data.contacts || []; checklist = data.checklist || [];
+      store.set('nabd_settings', settings); store.set('nabd_logs', logs); store.set('nabd_appointments', appts);
+      store.set('nabd_meds', meds); store.set('nabd_dose_logs', doseLogs); store.set('nabd_weight', weightEntries);
+      store.set('nabd_kicks', kickSessions); store.set('nabd_contacts', contacts); store.set('nabd_checklist', checklist);
+      renderHero(); renderLogs(); renderCharts(); renderAppts(); renderMeds(); renderWeight(); renderKickHistory(); renderContacts(); renderChecklist();
+      closeSettings();
+      alert('تم استيراد النسخة الاحتياطية بنجاح.');
+    };
+    reader.readAsText(f);
+  });
+
+  /* ---------------- Medications ---------------- */
+  $('medFreq').addEventListener('change', () => {
+    const v = $('medFreq').value;
+    $('medExtraRow').style.display = v === 'daily' ? 'none' : 'flex';
+    $('medWeekdayField').style.display = v === 'weekly' ? 'block' : 'none';
+    $('medTimesField').style.display = v === 'multiple' ? 'block' : 'none';
+    renderMedTimeInputs();
+  });
+  $('medTimes').addEventListener('input', renderMedTimeInputs);
+  function renderMedTimeInputs() {
+    const freq = $('medFreq').value;
+    const count = freq === 'multiple' ? Math.max(2, Math.min(6, Number($('medTimes').value) || 2)) : 1;
+    const box = $('medTimesInputs');
+    let html = '';
+    for (let i = 0; i < count; i++) {
+      html += `<div class="field" style="min-width:150px;flex:1;">
+        <label style="font-size:11px;">${count > 1 ? 'الجرعة ' + (i + 1) : 'الوقت'}</label>
+        ${buildTimeSelectHTML(i, 'medTime')}
+      </div>`;
+    }
+    box.innerHTML = html;
+  }
+  renderMedTimeInputs();
+  $('apptTimeGroup').innerHTML = buildTimeSelectHTML(0, 'appt');
+  $('quietStartGroup').innerHTML = buildTimeSelectHTML(0, 'quietStart');
+  $('quietEndGroup').innerHTML = buildTimeSelectHTML(0, 'quietEnd');
+
+  function slotsForMedOnDate(med, dateStr) {
+    const d = new Date(dateStr);
+    if (med.freq === 'daily') return [0];
+    if (med.freq === 'weekly') return d.getDay() === med.weekDay ? [0] : [];
+    if (med.freq === 'multiple') return Array.from({ length: med.timesPerDay }, (_, i) => i);
+    return [];
+  }
+  function doseTaken(medId, date, slot) { return doseLogs.some(dl => dl.medId === medId && dl.date === date && dl.slot === slot && dl.status === 'taken'); }
+
+  function renderMeds() {
+    const list = $('medList');
+    if (!meds.length) { list.innerHTML = `<div class="empty-note">لا توجد أدوية مضافة</div>`; }
+    else {
+      list.innerHTML = meds.map(m => `
+        <div class="med-item">
+          <div style="flex:1;">
+            <div class="med-name">${escapeHtml(m.name)}</div>
+            ${m.dose ? `<div class="med-dose">${escapeHtml(m.dose)}</div>` : ''}
+            <span class="med-freq">${m.freq === 'daily' ? 'يوميًا' : m.freq === 'weekly' ? 'أسبوعيًا — ' + WEEKDAY_NAMES[m.weekDay] : m.timesPerDay + ' مرات يوميًا'}</span>
+            ${m.times && m.times.some(t => t) ? `<div class="med-times">${m.times.map((t, i) => t ? `
+              <div class="med-time-row">
+                <span>${m.freq === 'multiple' ? 'الجرعة ' + (i + 1) + ' — ' : ''}${t}</span>
+                <button class="btn-outline ics-btn" data-med="${m.id}" data-slot="${i}" type="button">تذكير بالتقويم</button>
+              </div>` : '').join('')}</div>` : ''}
+          </div>
+          <button class="del-btn" data-id="${m.id}" title="حذف" style="position:static;">حذف</button>
+        </div>`).join('');
+      list.querySelectorAll('.del-btn').forEach(btn => btn.addEventListener('click', () => {
+        meds = meds.filter(m => m.id !== btn.dataset.id); store.set('nabd_meds', meds); renderMeds(); renderDoses();
+      }));
+      list.querySelectorAll('.ics-btn').forEach(btn => btn.addEventListener('click', () => {
+        const med = meds.find(m => m.id === btn.dataset.med);
+        const slot = Number(btn.dataset.slot);
+        if (!med || !med.times || !med.times[slot]) return;
+        const ics = buildDoseICS(med, slot, med.times[slot]);
+        const uri = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+        window.location.href = uri;
+      }));
+    }
+    renderDoses();
+  }
+
+  function renderDoses() {
+    const today = todayStr();
+    const todayBox = $('todayDoses');
+    let rows = [];
+    meds.forEach(m => {
+      slotsForMedOnDate(m, today).forEach(slot => {
+        const taken = doseTaken(m.id, today, slot);
+        const time = m.times && m.times[slot] ? m.times[slot] : '';
+        const label = m.freq === 'multiple' ? `${m.name} — الجرعة ${slot + 1}` : m.name;
+        rows.push({ medId: m.id, slot, label, dose: m.dose, taken, time });
+      });
+    });
+    todayBox.innerHTML = rows.length ? rows.map(r => `
+      <div class="dose-row">
+        <div class="dose-info">${escapeHtml(r.label)}${r.time ? ` — الساعة ${r.time}` : ''}${r.dose ? `<div class="sub">${escapeHtml(r.dose)}</div>` : ''}</div>
+        <button class="dose-btn ${r.taken ? 'done' : ''}" data-med="${r.medId}" data-slot="${r.slot}">${r.taken ? 'تم الأخذ ✓' : 'تم تناول الجرعة'}</button>
+      </div>`).join('') : `<div class="empty-note">لا توجد جرعات مجدولة اليوم</div>`;
+
+    todayBox.querySelectorAll('.dose-btn').forEach(btn => btn.addEventListener('click', () => {
+      const medId = btn.dataset.med, slot = Number(btn.dataset.slot);
+      const already = doseLogs.find(dl => dl.medId === medId && dl.date === today && dl.slot === slot);
+      if (already) { doseLogs = doseLogs.filter(dl => dl !== already); }
+      else { doseLogs.push({ id: uid(), medId, date: today, slot, status: 'taken', takenAt: Date.now() }); }
+      store.set('nabd_dose_logs', doseLogs);
+      renderDoses();
+    }));
+
+    const missedBox = $('missedDoses');
+    let missed = [];
+    for (let i = 1; i <= 7; i++) {
+      const d = new Date(Date.now() - i * DAY).toISOString().slice(0, 10);
+      meds.forEach(m => {
+        slotsForMedOnDate(m, d).forEach(slot => {
+          if (!doseTaken(m.id, d, slot)) missed.push({ name: m.name, date: d, slot, multi: m.freq === 'multiple' });
+        });
+      });
+    }
+    missed.sort((a, b) => b.date.localeCompare(a.date));
+    if (!missed.length) { missedBox.innerHTML = `<div class="empty-note">لا توجد جرعات فائتة</div>`; }
+    else {
+      missedBox.innerHTML = missed.slice(0, 12).map(m => `
+        <div class="dose-row">
+          <div class="dose-info">${escapeHtml(m.name)}${m.multi ? ' — الجرعة ' + (m.slot + 1) : ''}<div class="sub">${fmtDate(m.date)}</div></div>
+          <span class="missed-tag">فائتة</span>
+        </div>`).join('') + (missed.length > 12 ? `<div class="empty-note">و${missed.length - 12} جرعة أخرى فائتة</div>` : '');
+    }
+  }
+
+  $('addMed').addEventListener('click', () => {
+    const name = $('medName').value.trim();
+    if (!name) { $('medName').focus(); return; }
+    const freq = $('medFreq').value;
+    const med = { id: uid(), name, dose: $('medDose').value.trim(), freq, createdAt: Date.now() };
+    if (freq === 'weekly') med.weekDay = Number($('medWeekday').value);
+    if (freq === 'multiple') med.timesPerDay = Math.max(2, Math.min(6, Number($('medTimes').value) || 2));
+    const timeCount = freq === 'multiple' ? (med.timesPerDay || 2) : 1;
+    med.times = Array.from({ length: timeCount }, (_, i) => readTimeSelect('medTime', i));
+    meds.push(med);
+    store.set('nabd_meds', meds);
+    $('medName').value = ''; $('medDose').value = ''; $('medFreq').value = 'daily';
+    $('medExtraRow').style.display = 'none';
+    renderMedTimeInputs();
+    renderMeds();
+  });
+
+  /* ---------------- Voice dose logging ---------------- */
+  function normalizeAr(s) {
+    return (s || '').toString().trim().toLowerCase()
+      .replace(/[\u064B-\u0652]/g, '')
+      .replace(/[إأآا]/g, 'ا')
+      .replace(/ة/g, 'ه')
+      .replace(/ى/g, 'ي')
+      .replace(/\s+/g, ' ');
+  }
+  function findMedMatches(transcript) {
+    const norm = normalizeAr(transcript);
+    if (!norm) return [];
+    return meds.filter(m => {
+      const mn = normalizeAr(m.name);
+      if (!mn) return false;
+      if (norm.includes(mn) || mn.includes(norm)) return true;
+      return norm.split(' ').some(w => w.length > 1 && mn.includes(w));
+    });
+  }
+  function markDoseForMedToday(med) {
+    const today = todayStr();
+    const slots = slotsForMedOnDate(med, today);
+    const openSlot = slots.find(slot => !doseTaken(med.id, today, slot));
+    if (openSlot === undefined) return null;
+    doseLogs.push({ id: uid(), medId: med.id, date: today, slot: openSlot, status: 'taken', takenAt: Date.now() });
+    store.set('nabd_dose_logs', doseLogs);
+    renderDoses();
+    return openSlot;
+  }
+  function handleVoiceTranscript(transcript) {
+    const matches = findMedMatches(transcript);
+    $('voiceDoseConfirm').style.display = 'none';
+    if (matches.length === 1) {
+      const slot = markDoseForMedToday(matches[0]);
+      $('voiceDoseStatus').textContent = slot !== null
+        ? `تم تسجيل جرعة "${matches[0].name}" بالصوت.`
+        : `جرعات "${matches[0].name}" لهذا اليوم مسجَّلة بالفعل.`;
+      return;
+    }
+    $('voiceDoseStatus').textContent = matches.length > 1
+      ? `سمعتُ: "${transcript}" — أكثر من دواء مطابق، اختاري المقصود:`
+      : `سمعتُ: "${transcript}" — لم أتعرّف على الدواء، اختاريه يدويًا:`;
+    const box = $('voiceDoseConfirm');
+    const options = (matches.length ? matches : meds);
+    box.style.display = 'block';
+    box.innerHTML = `<div class="field-row">
+      <div class="field" style="flex:2;"><select id="voiceMedSelect">${options.map(m => `<option value="${m.id}">${escapeHtml(m.name)}</option>`).join('')}</select></div>
+      <div class="field" style="flex:1;"><button class="btn-primary" id="voiceMedConfirmBtn" type="button">تأكيد</button></div>
+    </div>`;
+    $('voiceMedConfirmBtn').addEventListener('click', () => {
+      const med = meds.find(m => m.id === $('voiceMedSelect').value);
+      if (med) {
+        const slot = markDoseForMedToday(med);
+        $('voiceDoseStatus').textContent = slot !== null ? `تم تسجيل جرعة "${med.name}".` : `جرعات "${med.name}" لهذا اليوم مسجَّلة بالفعل.`;
+      }
+      box.style.display = 'none';
+    });
+  }
+
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let voiceRecognizer = null;
+  if (SpeechRec) {
+    voiceRecognizer = new SpeechRec();
+    voiceRecognizer.lang = 'ar-SA';
+    voiceRecognizer.interimResults = false;
+    voiceRecognizer.maxAlternatives = 1;
+    voiceRecognizer.onresult = (e) => { handleVoiceTranscript(e.results[0][0].transcript); };
+    voiceRecognizer.onerror = (e) => {
+      $('voiceDoseStatus').textContent = e.error === 'not-allowed' ? 'تم رفض إذن الميكروفون من إعدادات المتصفح.'
+        : e.error === 'no-speech' ? 'لم يُسمع أي صوت، حاولي مرة أخرى.'
+        : 'تعذّر التعرف على الصوت، حاولي مرة أخرى.';
+      $('voiceDoseBtn').disabled = false;
+    };
+    voiceRecognizer.onend = () => { $('voiceDoseBtn').disabled = false; };
+  } else {
+    $('voiceDoseBtn').disabled = true;
+    $('voiceDoseStatus').textContent = 'التسجيل الصوتي غير مدعوم في هذا المتصفح.';
+  }
+
+  $('voiceDoseBtn').addEventListener('click', () => {
+    if (!voiceRecognizer) return;
+    if (!meds.length) { $('voiceDoseStatus').textContent = 'أضيفي دواءً أولًا قبل التسجيل الصوتي.'; return; }
+    $('voiceDoseStatus').textContent = 'جارٍ الاستماع... قولي اسم الدواء';
+    $('voiceDoseConfirm').style.display = 'none';
+    $('voiceDoseBtn').disabled = true;
+    try { voiceRecognizer.start(); } catch (e) { $('voiceDoseBtn').disabled = false; }
+  });
+
+  /* ---------------- Report ---------------- */
+  function buildReportHtml() {
+    const st = pregnancyState();
+    const recentLogs = [...logs].sort((a, b) => b.createdAt - a.createdAt).slice(0, 8);
+    const now = todayStr();
+    const upcomingAppts = appts.filter(a => a.date >= now).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 6);
+    const weightRows = [...weightEntries].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8);
+    const checklistDone = checklist.filter(i => i.done).length;
+
+    const medRows = meds.map(m => {
+      let takenCount = 0, totalCount = 0;
+      for (let i = 0; i < 14; i++) {
+        const d = new Date(Date.now() - i * DAY).toISOString().slice(0, 10);
+        slotsForMedOnDate(m, d).forEach(slot => { totalCount++; if (doseTaken(m.id, d, slot)) takenCount++; });
+      }
+      return `<tr><td>${escapeHtml(m.name)}</td><td>${escapeHtml(m.dose || '')}</td><td>${m.freq === 'daily' ? 'يوميًا' : m.freq === 'weekly' ? 'أسبوعيًا' : m.timesPerDay + ' مرات/يوم'}</td><td>${totalCount ? takenCount + '/' + totalCount : '—'}</td></tr>`;
+    }).join('');
+
+    const avatarHtml = settings && settings.photo ? `<img class="avatar" src="${settings.photo}" alt="">` : `<div class="avatar">${initials(settings && settings.name)}</div>`;
+
+    return `
+      <div class="report-sheet" id="reportSheetInner">
+        <div class="report-band">
+          <div class="report-clinic">
+            ${settings && settings.logo ? `<img src="${settings.logo}" alt="">` : ''}
+            <div>
+              <div class="cname">${escapeHtml((settings && settings.clinicName) || '')}</div>
+              <div class="dname">${escapeHtml((settings && settings.doctorName) || '')}</div>
+            </div>
+          </div>
+          <div class="report-title">أم سارة</div>
+        </div>
+
+        <div class="report-body">
+          <div class="report-patient">
+            ${avatarHtml}
+            <div>
+              <div class="pname">${escapeHtml((settings && settings.name) || 'غير محدد')}</div>
+              <div class="pdate">تاريخ التقرير: ${fmtDate(now)}</div>
+            </div>
+          </div>
+
+          ${st ? `
+          <div class="report-stats-strip">
+            <div class="report-stat"><div class="n">${st.weeks} أسبوع و ${st.days} يوم</div><div class="l">عمر الحمل</div></div>
+            <div class="report-stat"><div class="n">${st.trimester}</div><div class="l">الثلث الحالي</div></div>
+            <div class="report-stat"><div class="n">${fmtDate(st.due)}</div><div class="l">الموعد المتوقع للولادة</div></div>
+          </div>` : ''}
+
+          <div class="report-h2">آخر التسجيلات</div>
+          ${recentLogs.length ? `<div class="report-table-wrap"><table class="report-table"><thead><tr><th>التاريخ</th><th>الطاقة</th><th>الأعراض</th><th>ملاحظات</th></tr></thead><tbody>
+            ${recentLogs.map(l => `<tr><td>${fmtDate(l.date)}</td><td>${energyLabels[l.energy]}</td><td>${l.symptoms.join('، ') || '—'}</td><td>${escapeHtml(l.note) || '—'}</td></tr>`).join('')}
+          </tbody></table></div>` : `<div class="report-empty">لا توجد تسجيلات بعد</div>`}
+
+          <div class="report-h2">المواعيد القادمة</div>
+          ${upcomingAppts.length ? `<div class="report-table-wrap"><table class="report-table"><thead><tr><th>النوع</th><th>التاريخ</th><th>الوقت</th><th>الجهة</th><th>مرفق</th></tr></thead><tbody>
+            ${upcomingAppts.map(a => `<tr><td>${a.type}</td><td>${fmtDate(a.date)}</td><td>${a.time || '—'}</td><td>${escapeHtml(a.location) || '—'}</td><td>${a.attachment ? `<img src="${a.attachment}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;">` : '—'}</td></tr>`).join('')}
+          </tbody></table></div>` : `<div class="report-empty">لا توجد مواعيد قادمة</div>`}
+
+          ${meds.length ? `<div class="report-h2">الأدوية (آخر 14 يوم)</div>
+          <div class="report-table-wrap"><table class="report-table"><thead><tr><th>الدواء</th><th>الجرعة</th><th>التكرار</th><th>الالتزام</th></tr></thead><tbody>${medRows}</tbody></table></div>` : ''}
+
+          ${weightRows.length ? `<div class="report-h2">وزن الأم</div>
+          <div class="report-table-wrap"><table class="report-table"><thead><tr><th>التاريخ</th><th>الوزن (كجم)</th></tr></thead><tbody>
+            ${weightRows.map(w => `<tr><td>${fmtDate(w.date)}</td><td>${w.kg}</td></tr>`).join('')}
+          </tbody></table></div>` : ''}
+
+          ${checklist.length ? `<div class="report-h2">قائمة تجهيزات الولادة (${checklistDone} من ${checklist.length})</div>
+          <div class="report-table-wrap"><table class="report-table"><thead><tr><th>العنصر</th><th>الحالة</th></tr></thead><tbody>
+            ${checklist.map(i => `<tr><td>${escapeHtml(i.text)}</td><td>${i.done ? 'مكتمل' : 'متبقٍ'}</td></tr>`).join('')}
+          </tbody></table></div>` : ''}
+
+          <div class="report-foot">
+            <div class="ts">تم إنشاء هذا التقرير عبر تطبيق أم سارة بتاريخ ${fmtDate(now)}</div>
+            ${settings && settings.stamp ? `<img class="stamp" src="${settings.stamp}" alt="">` : ''}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function openReportPreview() {
+    $('reportPreviewMount').innerHTML = buildReportHtml();
+    const summary = buildShareSummary();
+    $('whatsappShare').href = 'https://wa.me/?text=' + encodeURIComponent(summary);
+    $('emailShare').href = 'mailto:?subject=' + encodeURIComponent('تقرير متابعة الحمل') + '&body=' + encodeURIComponent(summary);
+    $('reportOverlay').classList.add('open');
+  }
+  function buildShareSummary() {
+    const st = pregnancyState();
+    const nm = (settings && settings.name) || '';
+    if (!st) return `تقرير متابعة الحمل${nm ? ' — ' + nm : ''} (لم يتم إدخال تاريخ الحمل بعد)`;
+    return `تقرير متابعة الحمل${nm ? ' — ' + nm : ''}\nعمر الحمل: ${st.weeks} أسبوع و ${st.days} يوم (${st.trimester})\nالموعد المتوقع للولادة: ${fmtDate(st.due)}`;
+  }
+  $('previewReport').addEventListener('click', openReportPreview);
+  $('closeReport').addEventListener('click', () => $('reportOverlay').classList.remove('open'));
+  $('reportOverlay').addEventListener('click', (e) => { if (e.target === $('reportOverlay')) $('reportOverlay').classList.remove('open'); });
+
+  async function generatePdfBlob(html, nodeId) {
+    const host = $('reportHost');
+    host.innerHTML = html || buildReportHtml();
+    const node = document.getElementById(nodeId || 'reportSheetInner');
+    const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const imgW = pageW;
+    const imgH = canvas.height * (imgW / canvas.width);
+    let heightLeft = imgH, position = 0;
+    const imgData = canvas.toDataURL('image/png');
+    pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+    heightLeft -= pageH;
+    while (heightLeft > 0) {
+      position = heightLeft - imgH;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgW, imgH);
+      heightLeft -= pageH;
+    }
+    host.innerHTML = '';
+    return pdf.output('blob');
+  }
+
+  $('downloadPdf').addEventListener('click', async () => {
+    const btn = $('downloadPdf');
+    btn.disabled = true; btn.textContent = 'جارٍ التجهيز...';
+    try {
+      const blob = await generatePdfBlob();
+      const filename = 'تقرير-الحمل-' + todayStr() + '.pdf';
+      let handled = false;
+      try {
+        const downloads = await claude.use('downloads');
+        if (downloads) { await downloads.save({ filename, data: blob }); handled = true; }
+      } catch (e) { /* fall through to manual download */ }
+      if (!handled) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+      }
+    } catch (e) {
+      alert('تعذّر إنشاء ملف PDF. حاولي مرة أخرى.');
+    }
+    btn.disabled = false; btn.textContent = 'تنزيل PDF';
+  });
+
+  $('sharePdf').addEventListener('click', async () => {
+    const btn = $('sharePdf');
+    btn.disabled = true; btn.textContent = 'جارٍ التجهيز...';
+    try {
+      const blob = await generatePdfBlob();
+      const filename = 'تقرير-الحمل-' + todayStr() + '.pdf';
+      const file = new File([blob], filename, { type: 'application/pdf' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'تقرير متابعة الحمل' });
+      } else {
+        let handled = false;
+        try {
+          const downloads = await claude.use('downloads');
+          if (downloads) { await downloads.save({ filename, data: blob }); handled = true; }
+        } catch (e) {}
+        if (!handled) {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+        }
+        alert('تم تنزيل الملف. يمكنكِ إرفاقه يدويًا في واتساب أو البريد.');
+      }
+    } catch (e) {
+      if (e && e.name !== 'AbortError') alert('تعذّرت المشاركة المباشرة. جرّبي زر "تنزيل PDF" ثم أرفقي الملف يدويًا.');
+    }
+    btn.disabled = false; btn.textContent = 'مشاركة الملف';
+  });
+
+  /* ---------------- Init ---------------- */
+  try {
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist().catch(() => {});
+    }
+  } catch (e) { /* ignore — never let this block the rest of init */ }
+  try {
+    renderHero(); renderChips(); renderLogs(); renderCharts(); renderAppts(); renderMeds(); renderWeight(); renderKickHistory(); renderContacts(); renderChecklist(); refreshNotifyStatus(); refreshBackupReminder();
+  } catch (e) { console.error('init render error', e); }
+  setInterval(() => { renderHero(); checkApptReminders(); checkDoseReminders(); checkSnoozedAlerts(); }, 60000);
+  checkApptReminders();
+  checkDoseReminders();
+  checkSnoozedAlerts();
+  if (settings && settings.familyCode) {
+    pullFromCloud().then((found) => { if (found) { rerenderEverything(); checkApptReminders(); checkDoseReminders(); } }).catch(() => {});
+  }
+})();
+</script>
+</body>
+</html>
